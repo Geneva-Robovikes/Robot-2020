@@ -6,14 +6,12 @@ import frc.robot.RobotStick;
 
 public class Drive extends SubsystemBase{
 
-    private RobotStick stick;
     private VictorSPX frontLeft;
     private VictorSPX frontRight;
     private VictorSPX backLeft;
     private VictorSPX backRight;
 
-    public Drive(RobotStick stick, VictorSPX frontLeft, VictorSPX frontRight, VictorSPX backLeft, VictorSPX backRight){
-        this.stick = stick;
+    public Drive(VictorSPX frontLeft, VictorSPX frontRight, VictorSPX backLeft, VictorSPX backRight){
         this.frontLeft = frontLeft;
         this.frontRight = frontRight;
         this.backLeft = backLeft;

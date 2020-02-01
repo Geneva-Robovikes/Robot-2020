@@ -10,6 +10,7 @@ public class DriveMecanum extends CommandBase {
     public DriveMecanum(Drive drive, RobotStick stick){
         this.drive = drive;
         this.stick = stick;
+        addRequirements(drive);
     }
 
     @Override

@@ -7,12 +7,19 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.SparkMax;
+import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.DriveMecanum;
+import frc.robot.commands.TestCommand;
 import frc.robot.subsystems.Drive;
 import edu.wpi.first.wpilibj.Servo;
 
 import com.ctre.phoenix.motorcontrol.can.*;
+import frc.robot.subsystems.Test;
+
 import static frc.robot.Constants.*;
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -27,13 +34,16 @@ public class RobotInstance {
 
   private RobotStick stick;
   private Drive drive;
-  private VictorSPX frontLeft;
-  private VictorSPX frontRight;
-  private VictorSPX backLeft;
-  private VictorSPX backRight;
+  private WPI_VictorSPX frontLeft;
+  private WPI_VictorSPX frontRight;
+  private WPI_VictorSPX backLeft;
+  private WPI_VictorSPX backRight;
+  private CANSparkMax testSparkMAX;
 
   private VictorSPX testVictor;
-  //private Test test;
+
+  private MecanumDrive mechDrive;
+  private Test test;
   //VictorSPX followerVictor;
   Servo servo;
 
@@ -44,26 +54,28 @@ public class RobotInstance {
    */
   public RobotInstance() {
     stick = new RobotStick(0);
-    frontLeft = new VictorSPX(frontLeftVictorID);
-    frontRight = new VictorSPX(frontRightVictorID);
-    backLeft = new VictorSPX(backLeftVictorID);
-    backRight = new VictorSPX(backRightVictorID);
-    drive = new Drive(stick, frontLeft, frontRight, backLeft, backRight);
+    frontLeft = new WPI_VictorSPX(frontLeftVictorID);
+    frontRight = new WPI_VictorSPX(frontRightVictorID);
+    backLeft = new WPI_VictorSPX(backLeftVictorID);
+    backRight = new WPI_VictorSPX(backRightVictorID);
+    testSparkMAX = new CANSparkMax(testSparkMAXOne, CANSparkMaxLowLevel.MotorType.kBrushed);
+    drive = new Drive(frontLeft, frontRight, backLeft, backRight);
     CommandScheduler.getInstance().setDefaultCommand(drive, new DriveMecanum(drive, stick));
+    //mechDrive = new MecanumDrive(frontLeft, frontRight, backLeft, backRight);
 
 
     //testVictor = new VictorSPX(Constants.testVictorID);
-    //test = new Test(testVictor);
+    test = new Test(testSparkMAX);
     servo = new Servo(0);
 
   }
 
   public void setButtonBindings(){
-    //stick.getButton(1).whileHeld(new TestCommand((test)));
+    stick.getButton(1).whileHeld(new TestCommand((test)));
   }
 
-  public void testMotor(){
-    // Motor Setting
+  public void testDrive(){
+    mechDrive.driveCartesian(stick.getDY(), stick.getDX(), stick.getDZ());
   }
 
   public void testServo(){

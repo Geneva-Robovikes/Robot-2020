@@ -2,20 +2,25 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Test extends SubsystemBase {
-    private VictorSPX test;
+    private CANSparkMax testSpark;
 
-    public Test(VictorSPX test){
-        this.test = test;
+    public Test(CANSparkMax test){
+        this.testSpark = test;
     }
 
     public void setVictorToMax(){
-        test.set(ControlMode.PercentOutput, .1);
+        testSpark.set(.75);
     }
 
     public void turnOffVictor(){
-        test.set(ControlMode.PercentOutput, 0);
+        testSpark.set(0);
+    }
+
+    public double getSpark(){
+        return testSpark.get();
     }
 }

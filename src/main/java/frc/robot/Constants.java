@@ -18,8 +18,8 @@ package frc.robot;
 //GitHub commit test 2
 public final class Constants {
     // Test
-    public static final int testVictorID = 1;
-    public static final int followerVictorID = 3;
+    public static final int testSparkMAXOne = 5;
+    public static final int testSparkMAXTwo = 6;
 
     // Climb
 

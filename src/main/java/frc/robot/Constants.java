@@ -29,6 +29,10 @@ public final class Constants {
     public static final int backLeftVictorID = 2;
     public static final int backRightVictorID = 3;
 
+    public static final double ySpeed = .75;
+    public static final double turnSpeed = .50;
+    public static final double xSpeed = -.75;
+
     // Shuffleboard
     public static final double kSpeed = .5;
                                                                                                                                                                                                                                                                                                                                               

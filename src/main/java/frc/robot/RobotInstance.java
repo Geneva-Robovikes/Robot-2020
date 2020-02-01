@@ -10,6 +10,8 @@ package frc.robot;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.SparkMax;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.DriveMecanum;
@@ -38,12 +40,9 @@ public class RobotInstance {
   private WPI_VictorSPX frontRight;
   private WPI_VictorSPX backLeft;
   private WPI_VictorSPX backRight;
-  private CANSparkMax testSparkMAX;
 
-  private VictorSPX testVictor;
-
+  private DifferentialDrive tankDrive;
   private MecanumDrive mechDrive;
-  private Test test;
   //VictorSPX followerVictor;
   Servo servo;
 
@@ -58,24 +57,28 @@ public class RobotInstance {
     frontRight = new WPI_VictorSPX(frontRightVictorID);
     backLeft = new WPI_VictorSPX(backLeftVictorID);
     backRight = new WPI_VictorSPX(backRightVictorID);
-    testSparkMAX = new CANSparkMax(testSparkMAXOne, CANSparkMaxLowLevel.MotorType.kBrushed);
-    drive = new Drive(frontLeft, frontRight, backLeft, backRight);
-    CommandScheduler.getInstance().setDefaultCommand(drive, new DriveMecanum(drive, stick));
-    //mechDrive = new MecanumDrive(frontLeft, frontRight, backLeft, backRight);
+    //drive = new Drive(frontLeft, frontRight, backLeft, backRight);
+    //CommandScheduler.getInstance().setDefaultCommand(drive, new DriveMecanum(drive, stick));
+
+    /*SpeedControllerGroup left = new SpeedControllerGroup(frontLeft, backLeft);
+    SpeedControllerGroup right = new SpeedControllerGroup(frontRight, backRight);
+    tankDrive = new DifferentialDrive(left, right);*/
+
+    mechDrive = new MecanumDrive(frontLeft, backLeft, frontRight, backRight);
 
 
     //testVictor = new VictorSPX(Constants.testVictorID);
-    test = new Test(testSparkMAX);
     servo = new Servo(0);
 
   }
 
   public void setButtonBindings(){
-    stick.getButton(1).whileHeld(new TestCommand((test)));
+    //stick.getButton(1).whileHeld(new TestCommand((test)));
   }
 
   public void testDrive(){
-    mechDrive.driveCartesian(stick.getDY(), stick.getDX(), stick.getDZ());
+    mechDrive.driveCartesian(xSpeed * stick.getDX(), ySpeed * stick.getDY(), turnSpeed * stick.getDZ());
+    //tankDrive.arcadeDrive(stick.getDY(), stick.getDZ());
   }
 
   public void testServo(){

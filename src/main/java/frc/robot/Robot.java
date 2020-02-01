@@ -7,11 +7,9 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import com.revrobotics.ColorSensorV3;
 
@@ -24,12 +22,18 @@ import com.revrobotics.ColorSensorV3;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-  //private ColorSensorV3 colorSensorV3;
+  private final I2C.Port i2cPort = I2C.Port.kOnboard;
+  private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
+
   public static RobotInstance robot;
   public static DashHelper dash;
   private Encoder testCimcoder;
   private final double cpr = 20;
   private final double wheelDiameter = 8;
+
+
+  private ADXRS450_Gyro gyro;
+  private Timer timer;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -46,6 +50,12 @@ public class Robot extends TimedRobot {
     robot.setButtonBindings();
     testCimcoder = new Encoder(0, 1);
     testCimcoder.setDistancePerPulse((Math.PI * wheelDiameter) / cpr);
+
+    gyro = new ADXRS450_Gyro();
+    dash.setUpGyroWidget(gyro);
+    timer = new Timer();
+    timer.start();
+
     
   }
 
@@ -63,8 +73,12 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    Color color = colorSensor.getColor();
+    dash.setColor(color);
     double distance = testCimcoder.getDistance();
     dash.setEncoder(distance);
+    dash.setTimer(timer);
+    //robot.gyroDebug(gyro, timer);
 
   }
 

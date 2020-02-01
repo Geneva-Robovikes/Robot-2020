@@ -10,7 +10,9 @@ package frc.robot;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.SparkMax;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -41,17 +43,25 @@ public class RobotInstance {
   private WPI_VictorSPX backLeft;
   private WPI_VictorSPX backRight;
 
+  private CANSparkMax spark;
+  private Test test;
+
+
   private DifferentialDrive tankDrive;
   private MecanumDrive mechDrive;
   //VictorSPX followerVictor;
   Servo servo;
 
 
+  private double previousGyroAngle = 0;
+  private double previousTime = 0;
+
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotInstance() {
+
     stick = new RobotStick(0);
     frontLeft = new WPI_VictorSPX(frontLeftVictorID);
     frontRight = new WPI_VictorSPX(frontRightVictorID);
@@ -70,15 +80,27 @@ public class RobotInstance {
     //testVictor = new VictorSPX(Constants.testVictorID);
     servo = new Servo(0);
 
+    spark = new CANSparkMax(testSparkMAXOne, CANSparkMaxLowLevel.MotorType.kBrushed);
+    test = new Test(spark);
+
   }
 
   public void setButtonBindings(){
-    //stick.getButton(1).whileHeld(new TestCommand((test)));
+    stick.getButton(1).whileHeld(new TestCommand((test)));
   }
 
   public void testDrive(){
     mechDrive.driveCartesian(xSpeed * stick.getDX(), ySpeed * stick.getDY(), turnSpeed * stick.getDZ());
     //tankDrive.arcadeDrive(stick.getDY(), stick.getDZ());
+  }
+
+  public void gyroDebug(ADXRS450_Gyro gyro, Timer timer){
+    if(previousTime != 0 && previousGyroAngle != 0){
+      System.out.println("Gyro-reported instantaneous rate: " + gyro.getRate());
+      System.out.println("Calculated instantaneous rate: " + (gyro.getAngle() - previousGyroAngle) / (timer.get() - previousTime));
+    }
+    previousGyroAngle = gyro.getAngle();
+    previousTime = timer.get();
   }
 
   public void testServo(){

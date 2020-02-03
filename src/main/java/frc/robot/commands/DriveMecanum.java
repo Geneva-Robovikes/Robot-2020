@@ -21,16 +21,17 @@ public class DriveMecanum extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        double x, y, z, frontLeft, frontRight, backLeft, backRight;
+        double x, y, z; //frontLeft, frontRight, backLeft, backRight;
         x = stick.getDX();
         y = stick.getDY();
         z = stick.getDZ();
-        frontLeft = x + y + z;
+        /*frontLeft = x + y + z;
         frontRight = x - y + z;
         backLeft = -x + y + z;
         backRight = -x - y + z;
 
-        drive.setDriveVictors(frontLeft, frontRight, backLeft, backRight);
+        drive.setDriveVictors(frontLeft, frontRight, backLeft, backRight);*/
+        drive.setMechDrive(x, y, z);
     }
 
     // Called once the command ends or is interrupted.

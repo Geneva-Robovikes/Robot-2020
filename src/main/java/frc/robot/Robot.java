@@ -26,7 +26,7 @@ public class Robot extends TimedRobot {
   private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
 
   public static RobotInstance robot;
-  public static DashHelper dash;
+  public static final DashHelper dash = new DashHelper();
   private Encoder testCimcoder;
   private final double cpr = 20;
   private final double wheelDiameter = 8;
@@ -44,15 +44,12 @@ public class Robot extends TimedRobot {
 
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on these dashboard.
-    robot = new RobotInstance(); 
-    dash = new DashHelper();
     dash.startDash();
+    robot = new RobotInstance();
     robot.setButtonBindings();
     testCimcoder = new Encoder(0, 1);
     testCimcoder.setDistancePerPulse((Math.PI * wheelDiameter) / cpr);
 
-    gyro = new ADXRS450_Gyro();
-    dash.setUpGyroWidget(gyro);
     timer = new Timer();
     timer.start();
 
@@ -76,7 +73,6 @@ public class Robot extends TimedRobot {
     Color color = colorSensor.getColor();
     dash.setColor(color);
     double distance = testCimcoder.getDistance();
-    dash.setEncoder(distance);
     dash.setTimer(timer);
     //robot.gyroDebug(gyro, timer);
 

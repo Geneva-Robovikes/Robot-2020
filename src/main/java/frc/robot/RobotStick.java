@@ -1,7 +1,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import static frc.robot.Constants.*;
 
 
 public class RobotStick extends Joystick { // Defines the joystick
@@ -32,16 +33,16 @@ public class RobotStick extends Joystick { // Defines the joystick
     }
 
     public double getDX() { // Gets joystick X input (left/right)
-        return deadZone(this.getRawAxis(0), .20);
+        return deadZone(this.getRawAxis(0), xDeadZone);
     }
 
     public double getDY() { // Gets joystick Y input (forward/backward)
         // Negative because Y-Axis is inverted
-        return -1 * deadZone(this.getRawAxis(1), .20);
+        return -1 * deadZone(this.getRawAxis(1), yDeadZone);
     }
 
     public double getDZ() { // Gets joystick Z input (twist)
-        return deadZone(this.getRawAxis(2), .2);
+        return deadZone(this.getRawAxis(2), zDeadZone);
     }
 
     public int getNub() { // Input for POV stick

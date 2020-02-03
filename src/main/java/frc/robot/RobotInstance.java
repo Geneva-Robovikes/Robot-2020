@@ -47,8 +47,9 @@ public class RobotInstance {
   private Test test;
 
 
-  private DifferentialDrive tankDrive;
+  //private DifferentialDrive tankDrive;
   private MecanumDrive mechDrive;
+  private ADXRS450_Gyro gyro;
   //VictorSPX followerVictor;
   Servo servo;
 
@@ -67,16 +68,16 @@ public class RobotInstance {
     frontRight = new WPI_VictorSPX(frontRightVictorID);
     backLeft = new WPI_VictorSPX(backLeftVictorID);
     backRight = new WPI_VictorSPX(backRightVictorID);
-    //drive = new Drive(frontLeft, frontRight, backLeft, backRight);
     //CommandScheduler.getInstance().setDefaultCommand(drive, new DriveMecanum(drive, stick));
 
     /*SpeedControllerGroup left = new SpeedControllerGroup(frontLeft, backLeft);
     SpeedControllerGroup right = new SpeedControllerGroup(frontRight, backRight);
     tankDrive = new DifferentialDrive(left, right);*/
-
+    gyro = new ADXRS450_Gyro();
     mechDrive = new MecanumDrive(frontLeft, backLeft, frontRight, backRight);
 
-
+    drive = new Drive(frontLeft, frontRight, backLeft, backRight, gyro, mechDrive);
+    CommandScheduler.getInstance().setDefaultCommand(drive, new DriveMecanum(drive, stick));
     //testVictor = new VictorSPX(Constants.testVictorID);
     servo = new Servo(0);
 
@@ -90,18 +91,17 @@ public class RobotInstance {
   }
 
   public void testDrive(){
-    mechDrive.driveCartesian(xSpeed * stick.getDX(), ySpeed * stick.getDY(), turnSpeed * stick.getDZ());
     //tankDrive.arcadeDrive(stick.getDY(), stick.getDZ());
   }
 
-  public void gyroDebug(ADXRS450_Gyro gyro, Timer timer){
+  /*public void gyroDebug(ADXRS450_Gyro gyro, Timer timer){
     if(previousTime != 0 && previousGyroAngle != 0){
       System.out.println("Gyro-reported instantaneous rate: " + gyro.getRate());
       System.out.println("Calculated instantaneous rate: " + (gyro.getAngle() - previousGyroAngle) / (timer.get() - previousTime));
     }
     previousGyroAngle = gyro.getAngle();
     previousTime = timer.get();
-  }
+  }*/
 
   public void testServo(){
     // Servo Setting

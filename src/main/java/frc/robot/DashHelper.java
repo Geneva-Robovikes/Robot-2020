@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -57,6 +58,9 @@ public class DashHelper {
 
     public void setUpMechDriveWidget(MecanumDrive mechDrive){
         mainDash.add("Mecanum Drive", mechDrive).withWidget(BuiltInWidgets.kMecanumDrive);
+    }
+    public void setUpPDPWidget(PowerDistributionPanel pdp){
+        mainDash.add("PDP", pdp).withWidget(BuiltInWidgets.kPowerDistributionPanel);
     }
 
     public void setTimer(Timer timer){

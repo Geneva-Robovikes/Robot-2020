@@ -15,13 +15,13 @@ public class TestCommand extends CommandBase {
     @Override
     public void initialize() {
         test.setVictorToMax();
-        System.out.println("Command started: " + test.getSpark());
+        //System.out.println("Command started: " + test.getSpark());
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        System.out.println("Command executing: " + test.getSpark());
+        //System.out.println("Command executing: " + test.getSpark());
     }
 
     // Called once the command ends or is interrupted.

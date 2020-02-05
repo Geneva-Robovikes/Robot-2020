@@ -17,9 +17,10 @@ package frc.robot;
  */
 //GitHub commit test 2
 public final class Constants {
-    // Test
-    public static final int testSparkMAXOne = 5;
-    public static final int testSparkMAXTwo = 6;
+    // Ball System
+    public static final int sparkMAXIntake = 5;
+    public static final int sparkMiddle = 0;
+    public static final int sparkOutput = 1;
 
     // Climb
 

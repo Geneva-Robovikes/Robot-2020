@@ -71,9 +71,9 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     Color color = colorSensor.getColor();
-    dash.setColor(color);
+    //dash.setColor(color);
     double distance = testCimcoder.getDistance();
-    dash.setTimer(timer);
+    //dash.setTimer(timer);
     //robot.gyroDebug(gyro, timer);
 
   }

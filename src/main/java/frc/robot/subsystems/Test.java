@@ -13,8 +13,8 @@ public class Test extends SubsystemBase {
     }
 
     public void setVictorToMax(){
-        System.out.println("Called to set spark");
-        testSpark.set(.25);
+        //System.out.println("Called to set spark");
+        testSpark.set(1);
     }
 
     public void turnOffVictor(){

@@ -10,21 +10,21 @@ package frc.robot;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.SparkMax;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.BallIntakeMiddle;
 import frc.robot.commands.DriveMecanum;
 import frc.robot.commands.TestCommand;
+import frc.robot.subsystems.BallSystem;
 import frc.robot.subsystems.Drive;
-import edu.wpi.first.wpilibj.Servo;
 
 import com.ctre.phoenix.motorcontrol.can.*;
 import frc.robot.subsystems.Test;
 
 import static frc.robot.Constants.*;
+import static frc.robot.Robot.*;
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -38,20 +38,25 @@ public class RobotInstance {
 
   private RobotStick stick;
   private Drive drive;
+  private BallSystem ball;
+
   private WPI_VictorSPX frontLeft;
   private WPI_VictorSPX frontRight;
   private WPI_VictorSPX backLeft;
   private WPI_VictorSPX backRight;
 
-  private CANSparkMax spark;
+
+  private CANSparkMax ballIntake;
+  private Spark ballMiddle;
+  private Spark ballOutput;
+
   private Test test;
 
+  private PowerDistributionPanel pdp;
 
-  //private DifferentialDrive tankDrive;
+
   private MecanumDrive mechDrive;
   private ADXRS450_Gyro gyro;
-  //VictorSPX followerVictor;
-  Servo servo;
 
 
   private double previousGyroAngle = 0;
@@ -62,32 +67,31 @@ public class RobotInstance {
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotInstance() {
-
+    pdp = new PowerDistributionPanel(0);
+    dash.setUpPDPWidget(pdp);
     stick = new RobotStick(0);
     frontLeft = new WPI_VictorSPX(frontLeftVictorID);
     frontRight = new WPI_VictorSPX(frontRightVictorID);
     backLeft = new WPI_VictorSPX(backLeftVictorID);
     backRight = new WPI_VictorSPX(backRightVictorID);
-    //CommandScheduler.getInstance().setDefaultCommand(drive, new DriveMecanum(drive, stick));
 
-    /*SpeedControllerGroup left = new SpeedControllerGroup(frontLeft, backLeft);
-    SpeedControllerGroup right = new SpeedControllerGroup(frontRight, backRight);
-    tankDrive = new DifferentialDrive(left, right);*/
+    ballIntake = new CANSparkMax(sparkMAXIntake, CANSparkMaxLowLevel.MotorType.kBrushed);
+    ballMiddle = new Spark(sparkMiddle);
+    ballOutput = new Spark(sparkOutput);
+
+
     gyro = new ADXRS450_Gyro();
     mechDrive = new MecanumDrive(frontLeft, backLeft, frontRight, backRight);
 
     drive = new Drive(frontLeft, frontRight, backLeft, backRight, gyro, mechDrive);
+    ball = new BallSystem(ballIntake, ballMiddle, ballOutput);
     CommandScheduler.getInstance().setDefaultCommand(drive, new DriveMecanum(drive, stick));
-    //testVictor = new VictorSPX(Constants.testVictorID);
-    servo = new Servo(0);
 
-    spark = new CANSparkMax(testSparkMAXOne, CANSparkMaxLowLevel.MotorType.kBrushed);
-    test = new Test(spark);
 
   }
 
   public void setButtonBindings(){
-    stick.getButton(1).whileHeld(new TestCommand((test)));
+    stick.getButton(1).whileHeld(new BallIntakeMiddle(ball));
   }
 
   public void testDrive(){
@@ -103,11 +107,5 @@ public class RobotInstance {
     previousTime = timer.get();
   }*/
 
-  public void testServo(){
-    // Servo Setting
-
-    double z = 85+stick.getDZ()*85; 
-    servo.setAngle(z);
-  }
 
 }

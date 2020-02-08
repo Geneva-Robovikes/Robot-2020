@@ -15,14 +15,26 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.util.Color;
 
 public class DashHelper {
-    public ShuffleboardTab mainDash;
+    private ShuffleboardTab mainDash;
     public static NetworkTableEntry sbSpeedTest;
     public static NetworkTableEntry sbGyroWidget;
     public static NetworkTableEntry sbEncoderDistance;
     public static NetworkTableEntry sbRedValue, sbGreenValue, sbBlueValue;
     public static NetworkTableEntry sbTimer;
+    private static DashHelper dash;
 
-    public void startDash(){
+    public static DashHelper getInstance(){
+        if(dash == null){
+            dash = new DashHelper();
+            dash.startDash();
+        }
+        return dash;
+    }
+
+    private DashHelper(){
+    }
+
+    private void startDash(){
         mainDash = Shuffleboard.getTab("Main");
         UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
         camera.setVideoMode(VideoMode.PixelFormat.kMJPEG, 800, 600, 20 );

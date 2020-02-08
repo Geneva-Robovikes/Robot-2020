@@ -23,10 +23,10 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
-  private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
+  //private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
 
-  public static RobotInstance robot;
-  public static final DashHelper dash = new DashHelper();
+  private RobotInstance robot;
+  private DashHelper dash;
   private Encoder testCimcoder;
   private final double cpr = 20;
   private final double wheelDiameter = 8;
@@ -44,11 +44,11 @@ public class Robot extends TimedRobot {
 
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on these dashboard.
-    dash.startDash();
+    dash = DashHelper.getInstance();
     robot = new RobotInstance();
     robot.setButtonBindings();
-    testCimcoder = new Encoder(0, 1);
-    testCimcoder.setDistancePerPulse((Math.PI * wheelDiameter) / cpr);
+    //testCimcoder = new Encoder(0, 1);
+    //testCimcoder.setDistancePerPulse((Math.PI * wheelDiameter) / cpr);
 
     timer = new Timer();
     timer.start();
@@ -70,9 +70,9 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    Color color = colorSensor.getColor();
+    //Color color = colorSensor.getColor();
     //dash.setColor(color);
-    double distance = testCimcoder.getDistance();
+    //double distance = testCimcoder.getDistance();
     //dash.setTimer(timer);
     //robot.gyroDebug(gyro, timer);
 
@@ -119,7 +119,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    robot.testDrive();
+    //robot.servoTest();
   }
 
   @Override

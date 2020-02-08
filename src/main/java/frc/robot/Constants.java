@@ -25,10 +25,10 @@ public final class Constants {
     // Climb
 
     //Drive
-    public static final int frontLeftVictorID = 4;
-    public static final int frontRightVictorID = 1;
-    public static final int backLeftVictorID = 2;
-    public static final int backRightVictorID = 3;
+    public static final int frontLeftVictorID = 2;
+    public static final int frontRightVictorID = 4;
+    public static final int backLeftVictorID = 3;
+    public static final int backRightVictorID = 1;
 
     public static final double xSpeed = .75;
     public static final double ySpeed = .75;

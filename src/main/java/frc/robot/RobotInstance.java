@@ -10,7 +10,10 @@ package frc.robot;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.SparkMax;
-import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -24,7 +27,6 @@ import com.ctre.phoenix.motorcontrol.can.*;
 import frc.robot.subsystems.Test;
 
 import static frc.robot.Constants.*;
-import static frc.robot.Robot.*;
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -50,13 +52,15 @@ public class RobotInstance {
   private Spark ballMiddle;
   private Spark ballOutput;
 
+  private Servo servo;
+
   private Test test;
 
   private PowerDistributionPanel pdp;
 
 
   private MecanumDrive mechDrive;
-  private ADXRS450_Gyro gyro;
+  //private ADXRS450_Gyro gyro;
 
 
   private double previousGyroAngle = 0;
@@ -68,7 +72,7 @@ public class RobotInstance {
    */
   public RobotInstance() {
     pdp = new PowerDistributionPanel(0);
-    dash.setUpPDPWidget(pdp);
+    DashHelper.getInstance().setUpPDPWidget(pdp);
     stick = new RobotStick(0);
     frontLeft = new WPI_VictorSPX(frontLeftVictorID);
     frontRight = new WPI_VictorSPX(frontRightVictorID);
@@ -78,12 +82,15 @@ public class RobotInstance {
     ballIntake = new CANSparkMax(sparkMAXIntake, CANSparkMaxLowLevel.MotorType.kBrushed);
     ballMiddle = new Spark(sparkMiddle);
     ballOutput = new Spark(sparkOutput);
+    //servo = new Servo(2);
 
 
-    gyro = new ADXRS450_Gyro();
+
+    //gyro = new ADXRS450_Gyro();
     mechDrive = new MecanumDrive(frontLeft, backLeft, frontRight, backRight);
 
-    drive = new Drive(frontLeft, frontRight, backLeft, backRight, gyro, mechDrive);
+    drive = new Drive(frontLeft, frontRight, backLeft, backRight, /*gyro*/ mechDrive);
+
     ball = new BallSystem(ballIntake, ballMiddle, ballOutput);
     CommandScheduler.getInstance().setDefaultCommand(drive, new DriveMecanum(drive, stick));
 
@@ -98,6 +105,16 @@ public class RobotInstance {
     //tankDrive.arcadeDrive(stick.getDY(), stick.getDZ());
   }
 
+  /*public void servoTest() {
+    if (stick.getButtonPressed(3)) {
+      servo.setAngle(0);
+      System.out.println(servo.getAngle());
+    }
+    else if (stick.getButtonPressed(4)) {
+      servo.setAngle(170);
+      System.out.println(servo.getAngle());
+    }
+  }*/
   /*public void gyroDebug(ADXRS450_Gyro gyro, Timer timer){
     if(previousTime != 0 && previousGyroAngle != 0){
       System.out.println("Gyro-reported instantaneous rate: " + gyro.getRate());

@@ -53,6 +53,10 @@ public class RobotStick extends Joystick { // Defines the joystick
         return this.buttons[button-1];
     }
 
+    public boolean getButtonPressed(int button){
+        return this.getButton(button).get();
+    }
+
 
     public double getStickDegree() { // Returns the angle that the joystick is at in degrees
         return Math.toDegrees(Math.asin(getDY()/(Math.pow((Math.pow(getDX(),2)+Math.pow(getDY(),2)),0.5))));

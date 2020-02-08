@@ -4,10 +4,10 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.DashHelper;
 import frc.robot.RobotStick;
 
 import static frc.robot.Constants.*;
-import static frc.robot.Robot.*;
 
 public class Drive extends SubsystemBase{
 
@@ -20,15 +20,15 @@ public class Drive extends SubsystemBase{
     private MecanumDrive mechDrive;
 
     public Drive(VictorSPX frontLeft, VictorSPX frontRight, VictorSPX backLeft, VictorSPX backRight,
-                 ADXRS450_Gyro gyro, MecanumDrive mechDrive){
+                 /*ADXRS450_Gyro gyro*/ MecanumDrive mechDrive){
         this.frontLeft = frontLeft;
         this.frontRight = frontRight;
         this.backLeft = backLeft;
         this.backRight = backRight;
         this.gyro = gyro;
         this.mechDrive = mechDrive;
-        dash.setUpMechDriveWidget(mechDrive);
-        dash.setUpGyroWidget(gyro);
+        DashHelper.getInstance().setUpMechDriveWidget(mechDrive);
+        //DashHelper.getInstance().setUpGyroWidget(gyro);
     }
 
     public void setDriveVictors(double fL, double fR, double bL, double bR){

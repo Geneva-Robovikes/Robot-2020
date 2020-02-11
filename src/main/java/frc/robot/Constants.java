@@ -26,16 +26,16 @@ public final class Constants {
 
     //Drive
     public static final int frontLeftVictorID = 2;
-    public static final int frontRightVictorID = 4;
+    public static final int frontRightVictorID = 1;
     public static final int backLeftVictorID = 3;
-    public static final int backRightVictorID = 1;
+    public static final int backRightVictorID = 4;
 
-    public static final double xSpeed = .75;
-    public static final double ySpeed = .75;
-    public static final double zSpeed = .50;
+    public static final double xSpeed = .60;
+    public static final double ySpeed = .85;
+    public static final double zSpeed = .75;
 
-    public static final double xDeadZone = .20;
-    public static final double yDeadZone = .20;
+    public static final double xDeadZone = .10;
+    public static final double yDeadZone = .10;
     public static final double zDeadZone = .25;
 
     // Shuffleboard

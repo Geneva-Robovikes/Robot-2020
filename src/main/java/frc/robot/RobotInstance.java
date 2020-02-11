@@ -23,6 +23,7 @@ import frc.robot.commands.TestCommand;
 import frc.robot.subsystems.BallSystem;
 import frc.robot.subsystems.Drive;
 
+
 import com.ctre.phoenix.motorcontrol.can.*;
 import frc.robot.subsystems.Test;
 
@@ -60,8 +61,7 @@ public class RobotInstance {
 
 
   private MecanumDrive mechDrive;
-  //private ADXRS450_Gyro gyro;
-
+  //private ADIS16448_IMU gyro;
 
   private double previousGyroAngle = 0;
   private double previousTime = 0;

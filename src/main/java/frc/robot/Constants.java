@@ -15,28 +15,41 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-//GitHub commit test 2
+
 public final class Constants {
-    // Ball System
-    public static final int sparkMAXIntake = 5;
-    public static final int sparkMiddle = 0;
-    public static final int sparkOutput = 1;
-
-    // Climb
-
     //Drive
+    // Motor Controllers
     public static final int frontLeftVictorID = 2;
     public static final int frontRightVictorID = 1;
     public static final int backLeftVictorID = 3;
     public static final int backRightVictorID = 4;
 
+    // Speeds
     public static final double xSpeed = .60;
     public static final double ySpeed = .85;
     public static final double zSpeed = .75;
 
+    // Deadzones
     public static final double xDeadZone = .10;
     public static final double yDeadZone = .10;
-    public static final double zDeadZone = .25;
+    public static final double zDeadZone = .20;
+
+
+    // Ball System
+    // Motor Controllers
+    public static final int sparkMAXIntake = 5;
+    public static final int sparkMiddle = 6;
+    public static final int sparkOutput = 0;
+
+    // Speeds
+    public static final double intakeSpeed = 1;
+    public static final double middleSpeed = 1;
+    public static final double flywheelSpeed = 1;
+
+
+    // Climb
+
+
 
     // Shuffleboard
     public static final double kSpeed = .5;

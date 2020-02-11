@@ -46,5 +46,15 @@
       <option name="name" value="maven2" />
       <option name="url" value="http://www.revrobotics.com/content/sw/max/sdk/maven/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven2" />
+      <option name="name" value="maven2" />
+      <option name="url" value="http://maven.highcurrent.io/vendordeps/ADIS16448.json" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="WPI38c21ab6-aa8b-44bc-b844-8086c77f09ec_0Release" />
+      <option name="name" value="WPI38c21ab6-aa8b-44bc-b844-8086c77f09ec_0Release" />
+      <option name="url" value="http://maven.highcurrent.io/maven" />
+    </remote-repository>
   </component>
 </project>

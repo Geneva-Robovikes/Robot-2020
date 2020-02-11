@@ -10,8 +10,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj.util.Color;
-import com.revrobotics.ColorSensorV3;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -27,13 +25,7 @@ public class Robot extends TimedRobot {
 
   private RobotInstance robot;
   private DashHelper dash;
-  private Encoder testCimcoder;
-  private final double cpr = 20;
-  private final double wheelDiameter = 8;
 
-
-  private ADXRS450_Gyro gyro;
-  private Timer timer;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -41,18 +33,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-
-    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-    // autonomous chooser on these dashboard.
+    // Grabbing the DashHelper instance starts the dashboard
     dash = DashHelper.getInstance();
     robot = new RobotInstance();
-    robot.setButtonBindings();
-    //testCimcoder = new Encoder(0, 1);
-    //testCimcoder.setDistancePerPulse((Math.PI * wheelDiameter) / cpr);
-
-    timer = new Timer();
-    timer.start();
-
     
   }
 
@@ -70,11 +53,6 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    //Color color = colorSensor.getColor();
-    //dash.setColor(color);
-    //double distance = testCimcoder.getDistance();
-    //dash.setTimer(timer);
-    //robot.gyroDebug(gyro, timer);
 
   }
 
@@ -92,7 +70,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-
+    robot.initAutoCommands();
   }
 
   /**
@@ -105,13 +83,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
-    /*if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
-    }*/
+    robot.initTeleopCommands();
   }
 
   /**
@@ -119,7 +91,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    //robot.servoTest();
   }
 
   @Override

@@ -14,21 +14,22 @@ public class BallSystem extends SubsystemBase {
     // 3 motors - intake, middle, output
     // 2 functions - spin intake and middle at the same time; spin output
     private CANSparkMax intake;
-    private Spark middle;
-    private Spark output;
+    private CANSparkMax middle;
+    private Spark flywheel;
 
-    public BallSystem(CANSparkMax intake, Spark middle, Spark output) {
+    public BallSystem(CANSparkMax intake, CANSparkMax middle, Spark flywheel) {
         this.intake = intake;
         this.middle = middle;
-        this.output = output;
+        this.flywheel = flywheel;
+
     }
 
-    public void spinIntakeMiddle(double i, double m) {
-        intake.set(i);
-        middle.set(m);
+    public void spinIntakeMiddle(double intakeSpeed, double middleSpeed) {
+        intake.set(intakeSpeed);
+        middle.set(middleSpeed);
     }
 
-    public void spinOutput(double o) {
-        output.set(o);
+    public void spinFlywheel(double flywheelSpeed) {
+        flywheel.set(flywheelSpeed);
     }
 }

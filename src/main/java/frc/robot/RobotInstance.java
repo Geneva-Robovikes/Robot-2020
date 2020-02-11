@@ -9,25 +9,21 @@ package frc.robot;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
-import com.revrobotics.SparkMax;
-import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.BallIntakeMiddle;
-import frc.robot.commands.DriveMecanum;
-import frc.robot.commands.TestCommand;
+import frc.robot.commands.ballcommands.BallFlywheel;
+import frc.robot.commands.ballcommands.BallIntakeMiddle;
+import frc.robot.commands.drivecommands.DriveMecanum;
 import frc.robot.subsystems.BallSystem;
 import frc.robot.subsystems.Drive;
-
+import com.analog.adis16448.frc.ADIS16448_IMU;
 
 import com.ctre.phoenix.motorcontrol.can.*;
-import frc.robot.subsystems.Test;
 
 import static frc.robot.Constants.*;
+
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -35,94 +31,84 @@ import static frc.robot.Constants.*;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 
-//GitHub Commit Test
 public class RobotInstance {
-  // The robot's subsystems and commands are defined here...
+  // Declare all the variables here
 
+  // Not Subsystem-Specific
   private RobotStick stick;
-  private Drive drive;
-  private BallSystem ball;
+  private PowerDistributionPanel pdp;
 
+
+  // Drive Components + Subsystem
   private WPI_VictorSPX frontLeft;
   private WPI_VictorSPX frontRight;
   private WPI_VictorSPX backLeft;
   private WPI_VictorSPX backRight;
 
-
-  private CANSparkMax ballIntake;
-  private Spark ballMiddle;
-  private Spark ballOutput;
-
-  private Servo servo;
-
-  private Test test;
-
-  private PowerDistributionPanel pdp;
-
-
+  private ADIS16448_IMU gyro;
   private MecanumDrive mechDrive;
-  //private ADIS16448_IMU gyro;
 
-  private double previousGyroAngle = 0;
-  private double previousTime = 0;
+  private Drive drive;
 
 
-  /**
-   * The container for the robot.  Contains subsystems, OI devices, and commands.
-   */
+
+
+  // Ball Components + Subsystem
+  private CANSparkMax ballIntake;
+  private CANSparkMax ballMiddle;
+  private  Spark ballOutput;
+
+  private BallSystem ball;
+
+
+
   public RobotInstance() {
+    // Not Subsystem-Specific
+    stick = new RobotStick(0);
     pdp = new PowerDistributionPanel(0);
     DashHelper.getInstance().setUpPDPWidget(pdp);
-    stick = new RobotStick(0);
+
+    // Drive Components + Subsystem
     frontLeft = new WPI_VictorSPX(frontLeftVictorID);
     frontRight = new WPI_VictorSPX(frontRightVictorID);
     backLeft = new WPI_VictorSPX(backLeftVictorID);
     backRight = new WPI_VictorSPX(backRightVictorID);
 
-    ballIntake = new CANSparkMax(sparkMAXIntake, CANSparkMaxLowLevel.MotorType.kBrushed);
-    ballMiddle = new Spark(sparkMiddle);
-    ballOutput = new Spark(sparkOutput);
-    //servo = new Servo(2);
-
-
-
-    //gyro = new ADXRS450_Gyro();
+    gyro = new ADIS16448_IMU();
     mechDrive = new MecanumDrive(frontLeft, backLeft, frontRight, backRight);
 
-    drive = new Drive(frontLeft, frontRight, backLeft, backRight, /*gyro*/ mechDrive);
+    drive = new Drive(frontLeft, frontRight, backLeft, backRight, gyro, mechDrive);
+
+    // Ball Components + Subsystem
+    ballIntake = new CANSparkMax(sparkMAXIntake, CANSparkMaxLowLevel.MotorType.kBrushed);
+    ballMiddle = new CANSparkMax(sparkMiddle, CANSparkMaxLowLevel.MotorType.kBrushed);
+    ballOutput = new Spark(sparkOutput);
 
     ball = new BallSystem(ballIntake, ballMiddle, ballOutput);
+
+
+  }
+
+  public void initAutoCommands(){
+    // Kill anything just in case
+    CommandScheduler.getInstance().cancelAll();
+
+
+  }
+
+  public void initTeleopCommands(){
+    // Kill anything left over from auto
+    CommandScheduler.getInstance().cancelAll();
+
+    // Defaults
     CommandScheduler.getInstance().setDefaultCommand(drive, new DriveMecanum(drive, stick));
 
-
+    // Button bindings
+    stick.getButton(1).whileHeld(new BallFlywheel(ball));
+    stick.getButton(2).whileHeld(new BallIntakeMiddle(ball));
   }
 
-  public void setButtonBindings(){
-    stick.getButton(1).whileHeld(new BallIntakeMiddle(ball));
-  }
 
-  public void testDrive(){
-    //tankDrive.arcadeDrive(stick.getDY(), stick.getDZ());
-  }
-
-  /*public void servoTest() {
-    if (stick.getButtonPressed(3)) {
-      servo.setAngle(0);
-      System.out.println(servo.getAngle());
-    }
-    else if (stick.getButtonPressed(4)) {
-      servo.setAngle(170);
-      System.out.println(servo.getAngle());
-    }
-  }*/
-  /*public void gyroDebug(ADXRS450_Gyro gyro, Timer timer){
-    if(previousTime != 0 && previousGyroAngle != 0){
-      System.out.println("Gyro-reported instantaneous rate: " + gyro.getRate());
-      System.out.println("Calculated instantaneous rate: " + (gyro.getAngle() - previousGyroAngle) / (timer.get() - previousTime));
-    }
-    previousGyroAngle = gyro.getAngle();
-    previousTime = timer.get();
-  }*/
 
 
 }

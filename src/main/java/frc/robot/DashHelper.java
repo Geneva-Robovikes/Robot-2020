@@ -1,5 +1,6 @@
 package frc.robot;
 
+import com.analog.adis16448.frc.ADIS16448_IMU;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Timer;
@@ -24,14 +25,16 @@ public class DashHelper {
     private static DashHelper dash;
 
     public static DashHelper getInstance(){
+        // DashHelper is a singleton, only one object can exist
         if(dash == null){
             dash = new DashHelper();
-            dash.startDash();
         }
         return dash;
     }
 
     private DashHelper(){
+        // Control the dashboard stuff to initialize only once
+        dash.startDash();
     }
 
     private void startDash(){
@@ -40,7 +43,8 @@ public class DashHelper {
         camera.setVideoMode(VideoMode.PixelFormat.kMJPEG, 800, 600, 20 );
         camera.setExposureAuto();
         mainDash.add("Camera", camera);
-        sbSpeedTest = mainDash.add("Speed", Constants.kSpeed).getEntry();
+
+        /*sbSpeedTest = mainDash.add("Speed", Constants.kSpeed).getEntry();
 
 
         sbTimer = mainDash.add("Timer", 0).getEntry();
@@ -48,7 +52,8 @@ public class DashHelper {
         sbEncoderDistance = mainDash.add("Encoder", 0).getEntry();
         sbRedValue = mainDash.add("Red Value", 0).getEntry();
         sbGreenValue = mainDash.add("Green Value", 0).getEntry();
-        sbBlueValue = mainDash.add("Blue Value", 0).getEntry();
+        sbBlueValue = mainDash.add("Blue Value", 0).getEntry(); */
+
         Shuffleboard.selectTab("Main");
         Shuffleboard.startRecording();
 
@@ -64,7 +69,7 @@ public class DashHelper {
         sbBlueValue.setDouble(color.blue);
     }
 
-    public void setUpGyroWidget(ADXRS450_Gyro gyro){
+    public void setUpGyroWidget(ADIS16448_IMU gyro){
         mainDash.add("Gyro", gyro).withWidget(BuiltInWidgets.kGyro);
     }
 

@@ -45,7 +45,7 @@ repositories {
         url "http://www.revrobotics.com/content/sw/color-sensor-v3/sdk/maven/"
     }
     /*maven {
-        url "http://www.revrobotics.com/content/sw/max/sdk/maven/"
+        url "http://maven.highcurrent.io/vendordeps/ADIS16448.json"
     }*/
 }
 

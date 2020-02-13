@@ -28,13 +28,13 @@ public class DashHelper {
         // DashHelper is a singleton, only one object can exist
         if(dash == null){
             dash = new DashHelper();
+            dash.startDash();
         }
         return dash;
     }
 
     private DashHelper(){
         // Control the dashboard stuff to initialize only once
-        dash.startDash();
     }
 
     private void startDash(){
@@ -71,6 +71,7 @@ public class DashHelper {
 
     public void setUpGyroWidget(ADIS16448_IMU gyro){
         mainDash.add("Gyro", gyro).withWidget(BuiltInWidgets.kGyro);
+        System.out.println("Tried to set up gyro");
     }
 
     public void setUpMechDriveWidget(MecanumDrive mechDrive){
@@ -78,6 +79,7 @@ public class DashHelper {
     }
     public void setUpPDPWidget(PowerDistributionPanel pdp){
         mainDash.add("PDP", pdp).withWidget(BuiltInWidgets.kPowerDistributionPanel);
+        System.out.println("Tried to set up pdp widget");
     }
 
     public void setTimer(Timer timer){

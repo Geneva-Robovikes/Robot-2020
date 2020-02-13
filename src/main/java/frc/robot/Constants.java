@@ -32,7 +32,7 @@ public final class Constants {
     // Deadzones
     public static final double xDeadZone = .10;
     public static final double yDeadZone = .10;
-    public static final double zDeadZone = .20;
+    public static final double zDeadZone = .30;
 
 
     // Ball System

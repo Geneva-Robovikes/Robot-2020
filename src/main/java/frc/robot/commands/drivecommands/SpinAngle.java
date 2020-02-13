@@ -8,11 +8,19 @@ public class SpinAngle extends CommandBase {
     private double goalAngle;
     private double originalAngle;
     private double difference;
+    private double sign;
 
     public SpinAngle(Drive drive, double angle){
         this.drive = drive;
         this.goalAngle = angle;
         addRequirements(drive);
+
+        if (angle > 0) {
+            sign = .2;
+        }
+        else {
+            sign = -.2;
+        }
     }
 
     @Override
@@ -24,7 +32,7 @@ public class SpinAngle extends CommandBase {
     @Override
     public void execute(){
         // Spin clockwise or counter-clockwise depending on input angle
-        drive.spin(goalAngle / Math.abs(goalAngle));
+        drive.spin(sign);
 
         // Determine how far the angle has displaced
         difference = Math.abs(drive.getGyroAngle() - originalAngle);
@@ -42,4 +50,5 @@ public class SpinAngle extends CommandBase {
         super.end(interrupted);
         drive.spin(0);
     }
+
 }

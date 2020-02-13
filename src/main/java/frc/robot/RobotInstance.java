@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ballcommands.BallFlywheel;
 import frc.robot.commands.ballcommands.BallIntakeMiddle;
 import frc.robot.commands.drivecommands.DriveMecanum;
+import frc.robot.commands.drivecommands.SpinAngle;
 import frc.robot.subsystems.BallSystem;
 import frc.robot.subsystems.Drive;
 import com.analog.adis16448.frc.ADIS16448_IMU;
@@ -106,6 +107,8 @@ public class RobotInstance {
     // Button bindings
     stick.getButton(1).whileHeld(new BallFlywheel(ball));
     stick.getButton(2).whileHeld(new BallIntakeMiddle(ball));
+    stick.getButton(3).whenPressed(new SpinAngle(drive, 45));
+    stick.getButton(4).whenPressed(new SpinAngle(drive, -45));
   }
 
 

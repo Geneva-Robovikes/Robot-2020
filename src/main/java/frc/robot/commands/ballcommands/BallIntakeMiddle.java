@@ -9,6 +9,7 @@ public class BallIntakeMiddle extends CommandBase {
     private BallSystem ball;
     public BallIntakeMiddle(BallSystem ball){
         this.ball = ball;
+        addRequirements(ball);
     }
 
     @Override

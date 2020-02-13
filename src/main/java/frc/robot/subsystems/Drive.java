@@ -42,12 +42,13 @@ public class Drive extends SubsystemBase{
     }
 
     public void spin(double speed){
-        setDriveVictors(speed, speed, speed, speed);
+        setMechDrive(0, 0, speed);
     }
 
     public double getGyroAngle(){
         return gyro.getAngle();
     }
+
 
 
 }

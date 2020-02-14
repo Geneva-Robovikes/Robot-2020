@@ -91,6 +91,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    robot.servoTest();
   }
 
   @Override

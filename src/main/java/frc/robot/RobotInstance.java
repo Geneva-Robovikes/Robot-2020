@@ -9,6 +9,7 @@ package frc.robot;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
@@ -61,12 +62,13 @@ public class RobotInstance {
 
   private BallSystem ball;
 
-
+  private Servo servo;
 
   public RobotInstance() {
     // Not Subsystem-Specific
     stick = new RobotStick(0);
     pdp = new PowerDistributionPanel(0);
+    pdp.clearStickyFaults();
     DashHelper.getInstance().setUpPDPWidget(pdp);
 
     // Drive Components + Subsystem
@@ -86,6 +88,8 @@ public class RobotInstance {
     ballOutput = new Spark(sparkOutput);
 
     ball = new BallSystem(ballIntake, ballMiddle, ballOutput);
+
+    servo = new Servo(1);
 
 
   }
@@ -112,6 +116,13 @@ public class RobotInstance {
   }
 
 
-
+  public void servoTest(){
+    System.out.println(servo.getAngle());
+    if(stick.getButtonPressed(10)){
+      servo.setAngle(170);
+    } else if(stick.getButtonPressed(11)){
+      servo.setAngle(0);
+    }
+  }
 
 }

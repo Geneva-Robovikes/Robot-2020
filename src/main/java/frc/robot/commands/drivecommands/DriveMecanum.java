@@ -1,6 +1,7 @@
 package frc.robot.commands.drivecommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.DashHelper;
 import frc.robot.RobotStick;
 import frc.robot.subsystems.Drive;
 
@@ -8,8 +9,9 @@ public class DriveMecanum extends CommandBase {
     private Drive drive;
     private RobotStick stick;
 
-    private final double kP = .06;
-    private final double kD = .1;
+    private double kP = .02;
+    private double kI = 0;
+    private double kD = 0;
 
     private double originalAngle;
     private double previousError;
@@ -17,7 +19,7 @@ public class DriveMecanum extends CommandBase {
         this.drive = drive;
         this.stick = stick;
         originalAngle = drive.getGyroAngle();
-        previousError = drive.getGyroAngle() - originalAngle;
+        previousError = 0;
         addRequirements(drive);
     }
 
@@ -29,6 +31,9 @@ public class DriveMecanum extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        //kP = DashHelper.kP.getDouble(0.015);
+        //kI = DashHelper.kI.getDouble(0);
+        //kD = DashHelper.kD.getDouble(0);
         double x, y, z; //frontLeft, frontRight, backLeft, backRight;
         x = stick.getDX();
         y = stick.getDY();
@@ -36,15 +41,16 @@ public class DriveMecanum extends CommandBase {
 
         if(z == 0){
             // Drive Straight
-            double error = -(drive.getGyroAngle() - originalAngle);
-            double turn_power = kP * error + kD * ((error - previousError) / 0.02);
+            double error = drive.getZeroAngle() - drive.getGyroAngle();
+            double turn_power = kP * error;
             drive.setMechDrive(x, y, turn_power);
             previousError = error;
 
         } else {
             // Drive according to joystick
             drive.setMechDrive(x, y, z);
-            originalAngle = drive.getGyroAngle();
+            drive.setZeroAngle(drive.getGyroAngle());
+            previousError = 0;
         }
         //drive.setMechDrive(x, y, z);
 

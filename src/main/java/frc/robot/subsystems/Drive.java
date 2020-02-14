@@ -18,6 +18,8 @@ public class Drive extends SubsystemBase{
     private ADIS16448_IMU gyro;
     private MecanumDrive mechDrive;
 
+    private double zeroAngle = 0;
+
     public Drive(VictorSPX frontLeft, VictorSPX frontRight, VictorSPX backLeft, VictorSPX backRight,
                  ADIS16448_IMU gyro, MecanumDrive mechDrive){
         this.frontLeft = frontLeft;
@@ -47,6 +49,14 @@ public class Drive extends SubsystemBase{
 
     public double getGyroAngle(){
         return gyro.getAngle();
+    }
+
+    public double getZeroAngle(){
+        return this.zeroAngle;
+    }
+
+    public void setZeroAngle(double angle){
+        zeroAngle = angle;
     }
 
 

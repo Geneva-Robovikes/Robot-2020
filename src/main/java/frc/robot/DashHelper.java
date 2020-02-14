@@ -22,6 +22,9 @@ public class DashHelper {
     public static NetworkTableEntry sbEncoderDistance;
     public static NetworkTableEntry sbRedValue, sbGreenValue, sbBlueValue;
     public static NetworkTableEntry sbTimer;
+    public static NetworkTableEntry kP;
+    public static NetworkTableEntry kI;
+    public static NetworkTableEntry kD;
     private static DashHelper dash;
 
     public static DashHelper getInstance(){
@@ -53,6 +56,10 @@ public class DashHelper {
         sbRedValue = mainDash.add("Red Value", 0).getEntry();
         sbGreenValue = mainDash.add("Green Value", 0).getEntry();
         sbBlueValue = mainDash.add("Blue Value", 0).getEntry(); */
+
+        kP = mainDash.add("P", 0.015).getEntry();
+        kI = mainDash.add("I", 0).getEntry();
+        kD = mainDash.add("D", 0).getEntry();
 
         Shuffleboard.selectTab("Main");
         Shuffleboard.startRecording();

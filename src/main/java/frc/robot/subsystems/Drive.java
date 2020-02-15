@@ -19,6 +19,7 @@ public class Drive extends SubsystemBase{
     private MecanumDrive mechDrive;
 
     private double zeroAngle = 0;
+    private double actualAngle = 0;
 
     public Drive(VictorSPX frontLeft, VictorSPX frontRight, VictorSPX backLeft, VictorSPX backRight,
                  ADIS16448_IMU gyro, MecanumDrive mechDrive){
@@ -39,16 +40,20 @@ public class Drive extends SubsystemBase{
         backRight.set(ControlMode.PercentOutput, bR);
     }
 
-    public void setMechDrive(double x, double y, double z){
-        mechDrive.driveCartesian(xSpeed * x, ySpeed * y, zSpeed * z);
+    public void setMechDriveManual(double x, double y, double z){
+        mechDrive.driveCartesian(xSpeed * x, ySpeed * y, zSpeedManual * z);
+    }
+
+    public void setMechDriveAutomatic(double x, double y, double z){
+        mechDrive.driveCartesian(xSpeed * x, ySpeed * y, zSpeedAuto * z);
     }
 
     public void spin(double speed){
-        setMechDrive(0, 0, speed);
+        setMechDriveAutomatic(0, 0, speed);
     }
 
     public double getGyroAngle(){
-        return gyro.getAngle();
+        return actualAngle;
     }
 
     public double getZeroAngle(){
@@ -59,6 +64,12 @@ public class Drive extends SubsystemBase{
         zeroAngle = angle;
     }
 
+    @Override
+    public void periodic() {
+        if (gyro.getRate() >= 1 || gyro.getRate() <= -1) { // Deadzone; prevents slight input
+            actualAngle += (gyro.getRate() * .02);
+        }
+    }
 
 
 }

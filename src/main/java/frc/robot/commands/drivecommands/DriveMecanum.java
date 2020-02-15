@@ -9,7 +9,7 @@ public class DriveMecanum extends CommandBase {
     private Drive drive;
     private RobotStick stick;
 
-    private double kP = .02;
+    private double kP = .05;
     private double kI = 0;
     private double kD = 0;
 
@@ -42,14 +42,14 @@ public class DriveMecanum extends CommandBase {
         if(z == 0){
             // Drive Straight
             double error = drive.getZeroAngle() - drive.getGyroAngle();
-            double turn_power = kP * error;
-            drive.setMechDrive(x, y, turn_power);
+            double turnPower = kP * error;
+            drive.setMechDriveManual(x, y, turnPower);
             previousError = error;
 
         } else {
             // Drive according to joystick
-            drive.setMechDrive(x, y, z);
-            drive.setZeroAngle(drive.getGyroAngle());
+            drive.setMechDriveManual(x, y, z);
+            drive.setZeroAngle(drive.getGyroAngle() );
             previousError = 0;
         }
         //drive.setMechDrive(x, y, z);

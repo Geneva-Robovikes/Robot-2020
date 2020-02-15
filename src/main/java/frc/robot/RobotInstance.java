@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ballcommands.BallFlywheel;
 import frc.robot.commands.ballcommands.BallIntakeMiddle;
+import frc.robot.commands.ballcommands.FlipServo;
 import frc.robot.commands.drivecommands.DriveMecanum;
 import frc.robot.commands.drivecommands.SpinAngle;
 import frc.robot.subsystems.BallSystem;
@@ -86,10 +87,10 @@ public class RobotInstance {
     ballIntake = new CANSparkMax(sparkMAXIntake, CANSparkMaxLowLevel.MotorType.kBrushed);
     ballMiddle = new CANSparkMax(sparkMiddle, CANSparkMaxLowLevel.MotorType.kBrushed);
     ballOutput = new Spark(sparkOutput);
+    servo = new Servo(servoPort);
 
-    ball = new BallSystem(ballIntake, ballMiddle, ballOutput);
+    ball = new BallSystem(ballIntake, ballMiddle, ballOutput, servo);
 
-    servo = new Servo(1);
 
 
   }
@@ -111,18 +112,12 @@ public class RobotInstance {
     // Button bindings
     stick.getButton(1).whileHeld(new BallFlywheel(ball));
     stick.getButton(2).whileHeld(new BallIntakeMiddle(ball));
-    stick.getButton(3).whenPressed(new SpinAngle(drive, 45));
+    stick.getButton(3).whenPressed(new SpinAngle(drive, 180));
     stick.getButton(4).whenPressed(new SpinAngle(drive, -45));
+    stick.getButton(5).whenPressed(new FlipServo(ball));
   }
 
 
-  public void servoTest(){
-    System.out.println(servo.getAngle());
-    if(stick.getButtonPressed(10)){
-      servo.setAngle(170);
-    } else if(stick.getButtonPressed(11)){
-      servo.setAngle(0);
-    }
-  }
+
 
 }

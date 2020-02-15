@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.CAN;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,11 +17,13 @@ public class BallSystem extends SubsystemBase {
     private CANSparkMax intake;
     private CANSparkMax middle;
     private Spark flywheel;
+    private Servo servoGate;
 
-    public BallSystem(CANSparkMax intake, CANSparkMax middle, Spark flywheel) {
+    public BallSystem(CANSparkMax intake, CANSparkMax middle, Spark flywheel, Servo servo) {
         this.intake = intake;
         this.middle = middle;
         this.flywheel = flywheel;
+        this.servoGate = servo;
 
     }
 
@@ -31,5 +34,17 @@ public class BallSystem extends SubsystemBase {
 
     public void spinFlywheel(double flywheelSpeed) {
         flywheel.set(flywheelSpeed);
+    }
+
+    public void openServo(){
+        servoGate.setAngle(90);
+    }
+
+    public void closeServo(){
+        servoGate.setAngle(0);
+    }
+
+    public double getServoAngle(){
+        return servoGate.getAngle();
     }
 }

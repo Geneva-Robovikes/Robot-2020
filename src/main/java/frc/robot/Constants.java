@@ -26,7 +26,7 @@ public final class Constants {
 
     // Speeds
     public static final double xSpeed = .60;
-    public static final double ySpeed = .85;
+    public static final double ySpeed = 1;
     public static final double zSpeedAuto = .45;
     public static final double zSpeedManual = .75;
 
@@ -34,21 +34,23 @@ public final class Constants {
     public static final double xDeadZone = .10;
     public static final double yDeadZone = .10;
     public static final double zDeadZone = .30;
+    public static final double gyroDeadZone = 0.5;
 
 
     // Ball System
     // Motor Controllers
     public static final int sparkMAXIntake = 5;
     public static final int sparkMiddle = 6;
-    public static final int sparkOutput = 0;
+    public static final int sparkFlywheel1 = 0;
+    public static final int sparkFlywheel2 = 1;
 
     // Servo
-    public static final int servoPort = 1;
+    public static final int servoPort = 2;
 
     // Speeds
     public static final double intakeSpeed = 1;
     public static final double middleSpeed = 1;
-    public static final double flywheelSpeed = -.5;
+    public static final double flywheelSpeed = 1;
 
 
     // Climb

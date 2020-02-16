@@ -25,6 +25,7 @@ public class DashHelper {
     public static NetworkTableEntry kP;
     public static NetworkTableEntry kI;
     public static NetworkTableEntry kD;
+    public static NetworkTableEntry sbServoOpen;
     private static DashHelper dash;
 
     public static DashHelper getInstance(){
@@ -56,6 +57,7 @@ public class DashHelper {
         sbRedValue = mainDash.add("Red Value", 0).getEntry();
         sbGreenValue = mainDash.add("Green Value", 0).getEntry();
         sbBlueValue = mainDash.add("Blue Value", 0).getEntry(); */
+        sbServoOpen = mainDash.add("Servo open", false).getEntry();
 
         kP = mainDash.add("P", 0.015).getEntry();
         kI = mainDash.add("I", 0).getEntry();

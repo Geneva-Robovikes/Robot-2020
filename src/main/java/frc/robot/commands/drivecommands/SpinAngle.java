@@ -14,6 +14,7 @@ public class SpinAngle extends CommandBase {
     private double kI;
     private double kD;
 
+    // Zeigler-Nichols constants
     private double tU = .722;
     private double kU = .1683;
 
@@ -48,24 +49,22 @@ public class SpinAngle extends CommandBase {
 //        kI = (.54 * kU)/tU;
 //        kD = 0;
 
-        // PID
+        // PID Constants
         kP = .6 * kU;
         kI = (1.2 * kU)/tU;
         kD = (3 * kU *tU)/40;
 
 
-
+        // PIDController object to help us with the math
         pidController = new PIDController(kP, kI, kD);
         pidController.setTolerance(tolerance);
 
-        // Find the setpoint
-        System.out.println(drive.getZeroAngle());
+        // Set the setpoint to where you are + angle to spin
         drive.setZeroAngle(drive.getGyroAngle() + goalAngle);
-        System.out.println(drive.getZeroAngle());
 
-        integral = 0;
-        derivative = 0;
-        proportional = 0;
+        //integral = 0;
+        //derivative = 0;
+        //proportional = 0;
 
     }
 
@@ -73,18 +72,19 @@ public class SpinAngle extends CommandBase {
     public void execute(){
         error = drive.getZeroAngle() - drive.getGyroAngle();
 
-        proportional = error;
+        /*proportional = error;
         integral += 0.02 * error;
         derivative = (error-previousError)/0.02;
 
         double turnPower = (kP * proportional) + (kI * integral) + (kD * derivative);
-
+        */
+        // Use PIDController to calculate necessary speed
         double turnPID = pidController.calculate(drive.getGyroAngle(), drive.getZeroAngle());
 
         drive.spin(turnPID);
 
         // Reset the previous error
-        previousError = error;
+        //previousError = error;
     }
 
     @Override
@@ -96,10 +96,11 @@ public class SpinAngle extends CommandBase {
 
     @Override
     public void end(boolean interrupted){
-        System.out.println("SpinAngle Command Ended" + interrupted);
+        //System.out.println("SpinAngle Command Ended" + interrupted);
         // Stop spinning when we finish
         super.end(interrupted);
         drive.spin(0);
+        // Reset zero so DriveMecanum command doesn't undo the spin
         drive.setZeroAngle(drive.getGyroAngle());
     }
 

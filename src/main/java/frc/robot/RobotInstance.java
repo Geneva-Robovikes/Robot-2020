@@ -18,6 +18,7 @@ import frc.robot.commands.ballcommands.BallFlywheel;
 import frc.robot.commands.ballcommands.BallIntakeMiddle;
 import frc.robot.commands.ballcommands.FlipServo;
 import frc.robot.commands.drivecommands.DriveMecanum;
+import frc.robot.commands.drivecommands.EmergencyStop;
 import frc.robot.commands.drivecommands.SpinAngle;
 import frc.robot.subsystems.BallSystem;
 import frc.robot.subsystems.Drive;
@@ -59,7 +60,8 @@ public class RobotInstance {
   // Ball Components + Subsystem
   private CANSparkMax ballIntake;
   private CANSparkMax ballMiddle;
-  private  Spark ballOutput;
+  private Spark ballFlywheel1;
+  private Spark ballFlywheel2;
 
   private BallSystem ball;
 
@@ -86,10 +88,11 @@ public class RobotInstance {
     // Ball Components + Subsystem
     ballIntake = new CANSparkMax(sparkMAXIntake, CANSparkMaxLowLevel.MotorType.kBrushed);
     ballMiddle = new CANSparkMax(sparkMiddle, CANSparkMaxLowLevel.MotorType.kBrushed);
-    ballOutput = new Spark(sparkOutput);
+    ballFlywheel1 = new Spark(sparkFlywheel1);
+    ballFlywheel2 = new Spark(sparkFlywheel2);
     servo = new Servo(servoPort);
 
-    ball = new BallSystem(ballIntake, ballMiddle, ballOutput, servo);
+    ball = new BallSystem(ballIntake, ballMiddle, ballFlywheel1, ballFlywheel2,  servo);
 
 
 
@@ -115,6 +118,7 @@ public class RobotInstance {
     stick.getButton(3).whenPressed(new SpinAngle(drive, 180));
     stick.getButton(4).whenPressed(new SpinAngle(drive, -45));
     stick.getButton(5).whenPressed(new FlipServo(ball));
+    stick.getButton(12).whenPressed(new EmergencyStop(drive));
   }
 
 

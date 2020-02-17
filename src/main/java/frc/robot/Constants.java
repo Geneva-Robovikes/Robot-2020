@@ -17,6 +17,8 @@ package frc.robot;
  */
 
 public final class Constants {
+
+
     //Drive
     // Motor Controllers
     public static final int frontLeftVictorID = 2;
@@ -34,24 +36,34 @@ public final class Constants {
     public static final double xDeadZone = .10;
     public static final double yDeadZone = .10;
     public static final double zDeadZone = .30;
-    public static final double gyroDeadZone = 0.5;
+    public static final double gyroDeadZone = 1;
+
+    // Button Bindings
+    public static final int spin180Button = 3;
+    public static final int emergencyStopButton = 12;
 
 
     // Ball System
     // Motor Controllers
-    public static final int sparkMAXIntake = 5;
-    public static final int sparkMiddle = 6;
-    public static final int sparkFlywheel1 = 0;
-    public static final int sparkFlywheel2 = 1;
+    public static final int sparkIntake = 1;
+    public static final int sparkMiddle = 0;
+    public static final int sparkMAXFlywheel1 = 5;
+    public static final int sparkMAXFlywheel2 = 6;
 
     // Servo
     public static final int servoPort = 2;
 
     // Speeds
-    public static final double intakeSpeed = 1;
-    public static final double middleSpeed = 1;
-    public static final double flywheelSpeed = 1;
+    public static final double intakeSpeed = 0;
+    public static final double middleSpeed = -0;
+    public static final double flywheelSpeed = .50;
 
+    // Button Bindings
+    public static final int ballFlywheelButton = 1;
+    public static final int ballMiddleIntakeButton = 2;
+    public static final int flipServoButton = 5;
+    public static final int reverseIntakeButton = 4;
+    public static final int reverseMiddleButton = 6;
 
     // Climb
 

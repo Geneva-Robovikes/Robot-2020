@@ -14,9 +14,7 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.ballcommands.BallFlywheel;
-import frc.robot.commands.ballcommands.BallIntakeMiddle;
-import frc.robot.commands.ballcommands.FlipServo;
+import frc.robot.commands.ballcommands.*;
 import frc.robot.commands.drivecommands.DriveMecanum;
 import frc.robot.commands.drivecommands.EmergencyStop;
 import frc.robot.commands.drivecommands.SpinAngle;
@@ -58,10 +56,10 @@ public class RobotInstance {
 
 
   // Ball Components + Subsystem
-  private CANSparkMax ballIntake;
-  private CANSparkMax ballMiddle;
-  private Spark ballFlywheel1;
-  private Spark ballFlywheel2;
+  private CANSparkMax ballFlywheel1;
+  private CANSparkMax ballFlywheel2;
+  private Spark ballIntake;
+  private Spark ballMiddle;
 
   private BallSystem ball;
 
@@ -86,10 +84,10 @@ public class RobotInstance {
     drive = new Drive(frontLeft, frontRight, backLeft, backRight, gyro, mechDrive);
 
     // Ball Components + Subsystem
-    ballIntake = new CANSparkMax(sparkMAXIntake, CANSparkMaxLowLevel.MotorType.kBrushed);
-    ballMiddle = new CANSparkMax(sparkMiddle, CANSparkMaxLowLevel.MotorType.kBrushed);
-    ballFlywheel1 = new Spark(sparkFlywheel1);
-    ballFlywheel2 = new Spark(sparkFlywheel2);
+    ballIntake = new Spark(sparkIntake);
+    ballMiddle = new Spark(sparkMiddle);
+    ballFlywheel1 = new CANSparkMax(sparkMAXFlywheel1, CANSparkMaxLowLevel.MotorType.kBrushed);
+    ballFlywheel2 = new CANSparkMax(sparkMAXFlywheel2, CANSparkMaxLowLevel.MotorType.kBrushed);
     servo = new Servo(servoPort);
 
     ball = new BallSystem(ballIntake, ballMiddle, ballFlywheel1, ballFlywheel2,  servo);
@@ -113,12 +111,20 @@ public class RobotInstance {
     CommandScheduler.getInstance().setDefaultCommand(drive, new DriveMecanum(drive, stick));
 
     // Button bindings
-    stick.getButton(1).whileHeld(new BallFlywheel(ball));
-    stick.getButton(2).whileHeld(new BallIntakeMiddle(ball));
-    stick.getButton(3).whenPressed(new SpinAngle(drive, 180));
-    stick.getButton(4).whenPressed(new SpinAngle(drive, -45));
-    stick.getButton(5).whenPressed(new FlipServo(ball));
-    stick.getButton(12).whenPressed(new EmergencyStop(drive));
+    // Drive
+    stick.getButton(spin180Button).whenPressed(new SpinAngle(drive, 180));
+    stick.getButton(emergencyStopButton).whenPressed(new EmergencyStop(drive));
+
+
+    // Ball
+    stick.getButton(ballFlywheelButton).whileHeld(new BallFlywheel(ball));
+    stick.getButton(ballMiddleIntakeButton).whileHeld(new BallIntakeMiddle(ball));
+    stick.getButton(flipServoButton).whenPressed(new FlipServo(ball));
+    stick.getButton(reverseIntakeButton).whileHeld(new ReverseIntake(ball));
+    stick.getButton(reverseMiddleButton).whileHeld(new ReverseMiddle(ball));
+
+    //stick.getButton(4).whenPressed(new SpinAngle(drive, -45));
+
   }
 
 

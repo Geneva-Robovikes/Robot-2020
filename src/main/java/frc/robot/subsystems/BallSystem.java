@@ -14,17 +14,18 @@ import static frc.robot.Constants.*;
 public class BallSystem extends SubsystemBase {
     // 3 motors - intake, middle, output
     // 2 functions - spin intake and middle at the same time; spin output
-    private CANSparkMax intake;
-    private CANSparkMax middle;
-    private Spark flywheel1;
-    private Spark flywheel2;
+    private Spark intake;
+    private Spark middle;
+    private CANSparkMax flywheel1;
+    private CANSparkMax flywheel2;
     private Servo servoGate;
 
-    public BallSystem(CANSparkMax intake, CANSparkMax middle, Spark flywheel1, Spark flywheel2, Servo servo) {
+    public BallSystem(Spark intake, Spark middle, CANSparkMax flywheel1, CANSparkMax flywheel2, Servo servo) {
         this.intake = intake;
         this.middle = middle;
         this.flywheel1 = flywheel1;
         this.flywheel2 = flywheel2;
+
         this.servoGate = servo;
         this.closeServo();
     }

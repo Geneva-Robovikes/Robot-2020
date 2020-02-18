@@ -37,7 +37,7 @@ public class BallSystem extends SubsystemBase {
 
     public void spinFlywheel(double flywheelSpeed) {
         flywheel1.set(flywheelSpeed);
-        flywheel2.set(-flywheelSpeed);
+        flywheel2.set(flywheelSpeed);
     }
 
     public void openServo(){

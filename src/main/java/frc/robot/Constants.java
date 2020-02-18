@@ -54,8 +54,8 @@ public final class Constants {
     public static final int servoPort = 2;
 
     // Speeds
-    public static final double intakeSpeed = 0;
-    public static final double middleSpeed = -0;
+    public static final double intakeSpeed = .5;
+    public static final double middleSpeed = -.5;
     public static final double flywheelSpeed = .50;
 
     // Button Bindings

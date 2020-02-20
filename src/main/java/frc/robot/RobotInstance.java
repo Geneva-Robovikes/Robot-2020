@@ -9,6 +9,8 @@ package frc.robot;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.ColorSensorV3;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -23,6 +25,7 @@ import frc.robot.subsystems.Drive;
 import com.analog.adis16448.frc.ADIS16448_IMU;
 
 import com.ctre.phoenix.motorcontrol.can.*;
+import frc.robot.subsystems.WheelSpinner;
 
 import static frc.robot.Constants.*;
 
@@ -38,7 +41,7 @@ public class RobotInstance {
 
   // Not Subsystem-Specific
   private RobotStick stick;
-  private PowerDistributionPanel pdp;
+  private static PowerDistributionPanel pdp;
 
 
   // Drive Components + Subsystem
@@ -60,10 +63,11 @@ public class RobotInstance {
   private CANSparkMax ballFlywheel2;
   private Spark ballIntake;
   private Spark ballMiddle;
-
+  private Servo servo;
   private BallSystem ball;
 
-  private Servo servo;
+  private ColorSensorV3 colorSensor;
+  private WheelSpinner wheelSpinner;
 
   public RobotInstance() {
     // Not Subsystem-Specific
@@ -91,6 +95,10 @@ public class RobotInstance {
     servo = new Servo(servoPort);
 
     ball = new BallSystem(ballIntake, ballMiddle, ballFlywheel1, ballFlywheel2,  servo);
+
+    // Wheel Spinner Components + Subsystem
+    colorSensor = new ColorSensorV3(i2cPort);
+    wheelSpinner = new WheelSpinner(ballFlywheel2, colorSensor);
 
 
 
@@ -125,6 +133,10 @@ public class RobotInstance {
 
     //stick.getButton(4).whenPressed(new SpinAngle(drive, -45));
 
+  }
+
+  public static PowerDistributionPanel getPDP(){
+    return pdp;
   }
 
 

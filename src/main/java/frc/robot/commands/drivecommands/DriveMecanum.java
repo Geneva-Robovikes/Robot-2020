@@ -9,11 +9,11 @@ public class DriveMecanum extends CommandBase {
     private Drive drive;
     private RobotStick stick;
 
-    private double kP = .05;
-    private double kI = 0;
-    private double kD = 0;
+    private final double kP = 0.05;
+    //private double kI = 0;
+    //private double kD = 0;
 
-    private double spinConstant = .075;
+    private final double spinConstant = 0.125;
     private boolean justReleasedZFlag;
 
     private double previousError;
@@ -26,6 +26,7 @@ public class DriveMecanum extends CommandBase {
 
     @Override
     public void initialize() {
+//        spinConstant = DashHelper.kI.getDouble(0.5);
         justReleasedZFlag = false;
         previousError = 0;
 
@@ -34,7 +35,7 @@ public class DriveMecanum extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        //kP = DashHelper.kP.getDouble(0.015);
+
         //kI = DashHelper.kI.getDouble(0);
         //kD = DashHelper.kD.getDouble(0);
         double x, y, z; //frontLeft, frontRight, backLeft, backRight;

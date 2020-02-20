@@ -54,7 +54,7 @@ public class Drive extends SubsystemBase{
     }
 
     public double getGyroAngle(){
-        return actualAngle;
+        return gyro.getAngle();
     }
 
     public double getGyroRate(){
@@ -71,9 +71,9 @@ public class Drive extends SubsystemBase{
 
     @Override
     public void periodic() {
-        if (gyro.getRate() >= gyroDeadZone || gyro.getRate() <= -gyroDeadZone) { // Deadzone; prevents slight input
-            actualAngle += (gyro.getRate() * .02);
-        }
+//        if (gyro.getRate() >= gyroDeadZone || gyro.getRate() <= -gyroDeadZone) { // Deadzone; prevents slight input
+//            actualAngle += (gyro.getRate() * .02);
+//        }
     }
 
 

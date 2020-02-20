@@ -1,6 +1,7 @@
 package frc.robot.commands.drivecommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotInstance;
 import frc.robot.subsystems.Drive;
 
 public class EmergencyStop extends CommandBase {
@@ -15,6 +16,7 @@ public class EmergencyStop extends CommandBase {
     public void initialize(){
         drive.setMechDriveManual(0, 0, 0);
         drive.setDriveVictors(0, 0,0, 0);
+        RobotInstance.getPDP().clearStickyFaults();
     }
 
     @Override

@@ -38,7 +38,7 @@ public final class Constants {
     public static final double xDeadZone = .10;
     public static final double yDeadZone = .10;
     public static final double zDeadZone = .30;
-    public static final double gyroDeadZone = 1;
+    public static final double gyroDeadZone = .9;
 
     // Button Bindings
     public static final int spin180Button = 3;
@@ -56,15 +56,15 @@ public final class Constants {
     public static final int servoPort = 2;
 
     // Speeds
-    public static final double intakeSpeed = .5;
-    public static final double middleSpeed = -.5;
+    public static final double intakeSpeed = .4;
+    public static final double middleSpeed = -.4;
     public static final double flywheelSpeed = .50;
 
     // Button Bindings
     public static final int ballFlywheelButton = 1;
     public static final int ballMiddleIntakeButton = 2;
-    public static final int flipServoButton = 5;
     public static final int reverseIntakeButton = 4;
+    public static final int flipServoButton = 5;
     public static final int reverseMiddleButton = 6;
 
     // Climb

@@ -45,7 +45,7 @@ public class DriveMecanum extends CommandBase {
 
         if(z == 0){
             if(justReleasedZFlag){
-                // Get rid of inertia jerk by  slightly increasing the setpoint on the first loop after releasing
+                // Get rid of inertia jerk by  slightly increasing the setpoint on the first execution after releasing
                 // the joystick's z-axis
                 drive.setZeroAngle(drive.getZeroAngle() + drive.getGyroRate() * spinConstant);
                 justReleasedZFlag = false;

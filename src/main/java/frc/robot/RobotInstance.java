@@ -107,8 +107,6 @@ public class RobotInstance {
   public void initAutoCommands(){
     // Kill anything just in case
     CommandScheduler.getInstance().cancelAll();
-
-
   }
 
   public void initTeleopCommands(){
@@ -120,7 +118,7 @@ public class RobotInstance {
 
     // Button bindings
     // Drive
-    stick.getButton(spin180Button).whenPressed(new SpinAngle(drive, 180));
+    //stick.getButton(spin180Button).whenPressed(new SpinAngle(drive, 180));
     stick.getButton(emergencyStopButton).whenPressed(new EmergencyStop(drive));
 
 
@@ -139,6 +137,9 @@ public class RobotInstance {
     return pdp;
   }
 
+  public void resetGyro(){
+    drive.resetGyro();
+  }
 
 
 

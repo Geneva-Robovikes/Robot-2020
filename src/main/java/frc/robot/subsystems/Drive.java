@@ -54,7 +54,7 @@ public class Drive extends SubsystemBase{
     }
 
     public double getGyroAngle(){
-        return gyro.getAngle();
+        return actualAngle;
     }
 
     public double getGyroRate(){
@@ -69,11 +69,19 @@ public class Drive extends SubsystemBase{
         zeroAngle = angle;
     }
 
+    public void resetGyro(){
+        gyro.reset();
+        // gyro.calibrate();
+    }
+
     @Override
     public void periodic() {
-//        if (gyro.getRate() >= gyroDeadZone || gyro.getRate() <= -gyroDeadZone) { // Deadzone; prevents slight input
-//            actualAngle += (gyro.getRate() * .02);
-//        }
+        // Code to avoid gyro drift
+        if (gyro.getRate() >= gyroDeadZone || gyro.getRate() <= -gyroDeadZone) { // Deadzone; prevents slight input
+            System.out.println(gyro.getRate());
+            actualAngle += (gyro.getRate() * .02);
+        }
+
     }
 
 

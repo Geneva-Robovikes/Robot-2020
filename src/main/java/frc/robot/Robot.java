@@ -61,6 +61,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    RobotInstance.getPDP().clearStickyFaults();
   }
 
   @Override
@@ -83,6 +84,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    robot.resetGyro();
     robot.initTeleopCommands();
   }
 

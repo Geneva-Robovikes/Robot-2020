@@ -44,10 +44,7 @@ public class SpinAngle extends CommandBase {
         //kI = DashHelper.kI.getDouble(0);
         //kD = DashHelper.kD.getDouble(0);
 
-        // PI
-//        kP = .45 * kU;
-//        kI = (.54 * kU)/tU;
-//        kD = 0;
+
 
         // PID Constants
         kP = .6 * kU;

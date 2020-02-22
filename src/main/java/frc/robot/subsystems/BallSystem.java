@@ -41,11 +41,11 @@ public class BallSystem extends SubsystemBase {
     }
 
     public void openServo(){
-        servoGate.setAngle(90);
+        servoGate.setAngle(60);
     }
 
     public void closeServo(){
-        servoGate.setAngle(0);
+        servoGate.setAngle(90);
     }
 
     public double getServoAngle(){

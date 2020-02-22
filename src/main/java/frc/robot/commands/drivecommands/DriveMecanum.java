@@ -9,9 +9,9 @@ public class DriveMecanum extends CommandBase {
     private Drive drive;
     private RobotStick stick;
 
-    private final double kP = 0.05;
-    //private double kI = 0;
-    //private double kD = 0;
+    private double kP = 0.05;
+    private double kI = 0;
+    private double kD = 0;
 
     private final double spinConstant = 0.125;
     private boolean justReleasedZFlag;
@@ -26,6 +26,9 @@ public class DriveMecanum extends CommandBase {
 
     @Override
     public void initialize() {
+//        kP = DashHelper.kP.getDouble(0.05);
+//        kI = DashHelper.kI.getDouble(0);
+//        kD = DashHelper.kD.getDouble(0);
 //        spinConstant = DashHelper.kI.getDouble(0.5);
         justReleasedZFlag = false;
         previousError = 0;

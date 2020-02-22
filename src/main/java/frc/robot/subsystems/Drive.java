@@ -78,7 +78,7 @@ public class Drive extends SubsystemBase{
     public void periodic() {
         // Code to avoid gyro drift
         if (gyro.getRate() >= gyroDeadZone || gyro.getRate() <= -gyroDeadZone) { // Deadzone; prevents slight input
-            System.out.println(gyro.getRate());
+            //System.out.println(gyro.getRate());
             actualAngle += (gyro.getRate() * .02);
         }
 

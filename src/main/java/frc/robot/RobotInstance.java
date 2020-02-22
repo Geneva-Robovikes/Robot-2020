@@ -118,7 +118,7 @@ public class RobotInstance {
 
     // Button bindings
     // Drive
-    //stick.getButton(spin180Button).whenPressed(new SpinAngle(drive, 180));
+    stick.getButton(spin180Button).whenPressed(new SpinAngle(drive, 180));
     stick.getButton(emergencyStopButton).whenPressed(new EmergencyStop(drive));
 
 

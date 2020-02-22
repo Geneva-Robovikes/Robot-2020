@@ -29,16 +29,16 @@ public final class Constants {
     public static final int backRightVictorID = 2;
 
     // Speeds
-    public static final double xSpeed = .60;
+    public static final double xSpeed = .80;
     public static final double ySpeed = 1;
     public static final double zSpeedAuto = .45;
-    public static final double zSpeedManual = .75;
+    public static final double zSpeedManual = .85;
 
     // Deadzones
-    public static final double xDeadZone = .10;
+    public static final double xDeadZone = .20;
     public static final double yDeadZone = .10;
     public static final double zDeadZone = .30;
-    public static final double gyroDeadZone = .9;
+    public static final double gyroDeadZone = 1;
 
     // Button Bindings
     public static final int spin180Button = 3;
@@ -57,8 +57,8 @@ public final class Constants {
 
     // Speeds
     public static final double intakeSpeed = .4;
-    public static final double middleSpeed = -.4;
-    public static final double flywheelSpeed = .50;
+    public static final double middleSpeed = -.65;
+    public static final double flywheelSpeed = -.50;
 
     // Button Bindings
     public static final int ballFlywheelButton = 1;

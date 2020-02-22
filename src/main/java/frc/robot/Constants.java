@@ -44,6 +44,9 @@ public final class Constants {
     public static final int spin180Button = 3;
     public static final int emergencyStopButton = 12;
 
+    // Other
+    public static final double cutOffVoltage = 11.75;
+
 
     // Ball System
     // Motor Controllers

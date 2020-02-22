@@ -118,7 +118,7 @@ public class RobotInstance {
 
     // Button bindings
     // Drive
-    stick.getButton(spin180Button).whenPressed(new SpinAngle(drive, 180));
+    //stick.getButton(spin180Button).whenPressed(new SpinAngle(drive, 180));
     stick.getButton(emergencyStopButton).whenPressed(new EmergencyStop(drive));
 
 
@@ -128,6 +128,9 @@ public class RobotInstance {
     stick.getButton(flipServoButton).whenPressed(new FlipServo(ball));
     stick.getButton(reverseIntakeButton).whileHeld(new ReverseIntake(ball));
     stick.getButton(reverseMiddleButton).whileHeld(new ReverseMiddle(ball));
+    stick.getButton(5).whileHeld(new DumpEmOut(ball));
+
+
 
     //stick.getButton(4).whenPressed(new SpinAngle(drive, -45));
 

@@ -3,7 +3,10 @@ package frc.robot.commands.drivecommands;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.DashHelper;
+import frc.robot.RobotInstance;
 import frc.robot.subsystems.Drive;
+
+import static frc.robot.Constants.*;
 
 public class SpinAngle extends CommandBase {
     private Drive drive;
@@ -59,6 +62,16 @@ public class SpinAngle extends CommandBase {
         // Set the setpoint to where you are + angle to spin
         drive.setZeroAngle(drive.getGyroAngle() + goalAngle);
 
+        // I added this if statement to check the voltage on the spin angle
+        // The code before was just everything inside of the new else statement
+        //
+        // -- Stephen
+        // If voltage is too low, don't try to spin
+        if (RobotInstance.getPDP().getVoltage() < cutOffVoltage) {
+            System.out.println("Voltage too low for 180 spin! That's an L!");
+            end(true);
+        }
+
         //integral = 0;
         //derivative = 0;
         //proportional = 0;
@@ -67,6 +80,9 @@ public class SpinAngle extends CommandBase {
 
     @Override
     public void execute(){
+
+        System.out.println("The current voltage is: " + RobotInstance.getPDP().getVoltage());
+
         error = drive.getZeroAngle() - drive.getGyroAngle();
 
         /*proportional = error;
@@ -79,15 +95,22 @@ public class SpinAngle extends CommandBase {
         double turnPID = pidController.calculate(drive.getGyroAngle(), drive.getZeroAngle());
 
         drive.spin(turnPID);
-
         // Reset the previous error
         //previousError = error;
     }
 
+
+
     @Override
     public boolean isFinished(){
         // End if we have spun the desired amount
-        System.out.println(error);
+        // Added by Stephen below...
+        if (error == 0.0){
+            System.out.println(("Spin angle did not run"));
+        } else {
+            System.out.println(error);
+        }
+
         return (error <= tolerance) && (error >= -tolerance);
     }
 

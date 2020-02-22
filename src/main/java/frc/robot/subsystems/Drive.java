@@ -71,6 +71,7 @@ public class Drive extends SubsystemBase{
 
     public void resetGyro(){
         gyro.reset();
+        setZeroAngle(0);
         // gyro.calibrate();
     }
 

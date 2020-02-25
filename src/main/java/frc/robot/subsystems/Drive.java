@@ -72,6 +72,7 @@ public class Drive extends SubsystemBase{
     public void resetGyro(){
         gyro.reset();
         setZeroAngle(0);
+        actualAngle = 0;
         // gyro.calibrate();
     }
 
@@ -80,6 +81,7 @@ public class Drive extends SubsystemBase{
         // Code to avoid gyro drift
         if (gyro.getRate() >= gyroDeadZone || gyro.getRate() <= -gyroDeadZone) { // Deadzone; prevents slight input
             //System.out.println(gyro.getRate());
+            // Integrate gyro rate to find angle
             actualAngle += (gyro.getRate() * .02);
         }
 

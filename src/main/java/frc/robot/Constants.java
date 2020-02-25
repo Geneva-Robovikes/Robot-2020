@@ -50,10 +50,10 @@ public final class Constants {
 
     // Ball System
     // Motor Controllers
-    public static final int sparkIntake = 1;
-    public static final int sparkMiddle = 0;
-    public static final int sparkMAXFlywheel1 = 5;
-    public static final int sparkMAXFlywheel2 = 6;
+    public static final int sparkIntakePort = 1;
+    public static final int sparkMiddlePort = 0;
+    public static final int sparkMAXFlywheel1ID = 5;
+    public static final int sparkMAXFlywheel2ID = 6;
 
     // Servo
     public static final int servoPort = 2;
@@ -70,8 +70,17 @@ public final class Constants {
     public static final int flipServoButton = 5;
     public static final int reverseMiddleButton = 6;
 
-    // Climb
+    // Lift
+    // Motor Controllers
+    public static final int talonLift1Port = 3;
+    public static final int talonLift2Port = 4;
 
+    // Speeds
+    public static final double liftSpeed = .5;
+
+    // Button Bindings
+    public static final int liftUpButton = 10;
+    public static final int liftDownButton = 11;
 
     // Wheel Spinner
     public static final I2C.Port i2cPort = I2C.Port.kOnboard;

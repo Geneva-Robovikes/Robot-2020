@@ -10,21 +10,20 @@ package frc.robot;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.ColorSensorV3;
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.Servo;
-import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ballcommands.*;
 import frc.robot.commands.drivecommands.DriveMecanum;
 import frc.robot.commands.drivecommands.EmergencyStop;
-import frc.robot.commands.drivecommands.SpinAngle;
+import frc.robot.commands.liftcommands.LiftDown;
+import frc.robot.commands.liftcommands.LiftUp;
 import frc.robot.subsystems.BallSystem;
 import frc.robot.subsystems.Drive;
 import com.analog.adis16448.frc.ADIS16448_IMU;
 
 import com.ctre.phoenix.motorcontrol.can.*;
+import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.WheelSpinner;
 
 import static frc.robot.Constants.*;
@@ -66,8 +65,14 @@ public class RobotInstance {
   private Servo servo;
   private BallSystem ball;
 
+  // Wheel Components +  Subsystem
   private ColorSensorV3 colorSensor;
   private WheelSpinner wheelSpinner;
+
+  // Lift Components + Subsystem
+  private Talon liftTalon1;
+  private Talon liftTalon2;
+  private Lift lift;
 
   public RobotInstance() {
     // Not Subsystem-Specific
@@ -88,10 +93,10 @@ public class RobotInstance {
     drive = new Drive(frontLeft, frontRight, backLeft, backRight, gyro, mechDrive);
 
     // Ball Components + Subsystem
-    ballIntake = new Spark(sparkIntake);
-    ballMiddle = new Spark(sparkMiddle);
-    ballFlywheel1 = new CANSparkMax(sparkMAXFlywheel1, CANSparkMaxLowLevel.MotorType.kBrushed);
-    ballFlywheel2 = new CANSparkMax(sparkMAXFlywheel2, CANSparkMaxLowLevel.MotorType.kBrushed);
+    ballIntake = new Spark(sparkIntakePort);
+    ballMiddle = new Spark(sparkMiddlePort);
+    ballFlywheel1 = new CANSparkMax(sparkMAXFlywheel1ID, CANSparkMaxLowLevel.MotorType.kBrushed);
+    ballFlywheel2 = new CANSparkMax(sparkMAXFlywheel2ID, CANSparkMaxLowLevel.MotorType.kBrushed);
     servo = new Servo(servoPort);
 
     ball = new BallSystem(ballIntake, ballMiddle, ballFlywheel1, ballFlywheel2,  servo);
@@ -100,7 +105,10 @@ public class RobotInstance {
     colorSensor = new ColorSensorV3(i2cPort);
     wheelSpinner = new WheelSpinner(ballFlywheel2, colorSensor);
 
-
+    // Lift Components + Subsystem
+    liftTalon1 = new Talon(talonLift1Port);
+    liftTalon2 = new Talon(talonLift2Port);
+    lift = new Lift(liftTalon1, liftTalon2);
 
   }
 
@@ -129,6 +137,10 @@ public class RobotInstance {
     stick.getButton(reverseIntakeButton).whileHeld(new ReverseIntake(ball));
     stick.getButton(reverseMiddleButton).whileHeld(new ReverseMiddle(ball));
     stick.getButton(5).whileHeld(new DumpEmOut(ball));
+
+    // Lift
+    stick.getButton(liftUpButton).whileHeld(new LiftUp(lift));
+    stick.getButton(liftDownButton).whileHeld(new LiftDown(lift));
 
 
 

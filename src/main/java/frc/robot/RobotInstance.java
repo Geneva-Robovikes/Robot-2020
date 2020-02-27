@@ -148,9 +148,6 @@ public class RobotInstance {
     stick.getButton(liftDownButton).whileHeld(new LiftDown(lift));
 
 
-
-    //stick.getButton(4).whenPressed(new SpinAngle(drive, -45));
-
   }
 
   public static PowerDistributionPanel getPDP(){

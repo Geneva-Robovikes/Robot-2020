@@ -118,7 +118,7 @@ public class RobotInstance {
     // Kill anything just in case
     CommandScheduler.getInstance().cancelAll();
 
-    BasicAuto bAuto = new BasicAuto(drive, 180);
+    BasicAuto bAuto = new BasicAuto(drive, 90);
     CommandScheduler.getInstance().schedule(bAuto);
   }
 

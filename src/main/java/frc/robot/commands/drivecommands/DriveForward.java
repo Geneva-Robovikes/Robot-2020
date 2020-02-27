@@ -8,13 +8,14 @@ import java.util.concurrent.TimeUnit;
 
 public class DriveForward extends CommandBase {
     private Timer timer;
-    private Drive driveSubsystem;
+    private Drive drive;
     private double speed;
     private double time;
     public DriveForward(Drive drive, double speed, double time) {
-        driveSubsystem = drive;
+        this.drive = drive;
         this.speed = speed;
         this.time = time;
+        timer = new Timer();
         addRequirements(drive);
     }
 
@@ -25,7 +26,7 @@ public class DriveForward extends CommandBase {
 
     @Override
     public void execute() {
-        driveSubsystem.setDriveVictors(speed, -speed, speed, -speed);
+        drive.setDriveVictors(speed, -speed, speed, -speed);
     }
 
     @Override
@@ -37,6 +38,6 @@ public class DriveForward extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         super.end(interrupted);
-        driveSubsystem.setDriveVictors(0,0,0,0);
+        drive.setDriveVictors(0,0,0,0);
     }
 }

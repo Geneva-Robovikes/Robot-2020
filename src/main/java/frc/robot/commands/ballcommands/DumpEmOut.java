@@ -29,10 +29,8 @@ public class DumpEmOut extends CommandBase {
     }
     @Override
     public void execute(){
+        ball.spinFlywheel(flywheelSpeed);
         if(t.get() > .5){
-            ball.spinFlywheel(flywheelSpeed);
-        }
-        if(t.get() > 2){
             ball.openServo();
         }
 
@@ -40,7 +38,7 @@ public class DumpEmOut extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        return (t.get() > 4);
+        return (t.get() > 2.5);
     }
 
     @Override

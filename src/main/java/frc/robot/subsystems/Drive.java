@@ -30,8 +30,8 @@ public class Drive extends SubsystemBase{
         this.backRight = backRight;
         this.gyro = gyro;
         this.mechDrive = mechDrive;
-        DashHelper.getInstance().setUpMechDriveWidget(mechDrive);
-        DashHelper.getInstance().setUpGyroWidget(gyro);
+        //DashHelper.getInstance().setUpMechDriveWidget(mechDrive);
+        //DashHelper.getInstance().setUpGyroWidget(gyro);
     }
 
     public void setDriveVictors(double fL, double fR, double bL, double bR){

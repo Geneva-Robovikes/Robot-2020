@@ -23,19 +23,31 @@ public class DumpEmOut extends CommandBase {
     @Override
     public void initialize(){
         t.start();
-        ball.spinFlywheel(flywheelSpeed);
+        ball.closeServo();
         ball.spinIntakeMiddle(intakeSpeed, middleSpeed);
 
     }
     @Override
     public void execute(){
+        if(t.get() > .5){
+            ball.spinFlywheel(flywheelSpeed);
+        }
+        if(t.get() > 2){
+            ball.openServo();
+        }
 
+    }
+
+    @Override
+    public boolean isFinished(){
+        return (t.get() > 4);
     }
 
     @Override
     public void end(boolean interrupted){
         super.end(interrupted);
         t.stop();
+        ball.closeServo();
         ball.spinFlywheel(0);
         ball.spinIntakeMiddle(0, 0);
     }

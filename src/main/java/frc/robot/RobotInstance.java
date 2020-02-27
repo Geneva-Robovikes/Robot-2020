@@ -13,9 +13,11 @@ import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.autocommandgroups.BasicAuto;
 import frc.robot.commands.ballcommands.*;
 import frc.robot.commands.drivecommands.DriveMecanum;
 import frc.robot.commands.drivecommands.EmergencyStop;
+import frc.robot.commands.drivecommands.SpinAngle;
 import frc.robot.commands.liftcommands.LiftDown;
 import frc.robot.commands.liftcommands.LiftUp;
 import frc.robot.subsystems.BallSystem;
@@ -115,6 +117,9 @@ public class RobotInstance {
   public void initAutoCommands(){
     // Kill anything just in case
     CommandScheduler.getInstance().cancelAll();
+
+    BasicAuto bAuto = new BasicAuto(drive, 180);
+    CommandScheduler.getInstance().schedule(bAuto);
   }
 
   public void initTeleopCommands(){
@@ -126,7 +131,7 @@ public class RobotInstance {
 
     // Button bindings
     // Drive
-    //stick.getButton(spin180Button).whenPressed(new SpinAngle(drive, 180));
+    stick.getButton(spin180Button).whenPressed(new SpinAngle(drive, 180));
     stick.getButton(emergencyStopButton).whenPressed(new EmergencyStop(drive));
 
 
@@ -136,7 +141,7 @@ public class RobotInstance {
     stick.getButton(flipServoButton).whenPressed(new FlipServo(ball));
     stick.getButton(reverseIntakeButton).whileHeld(new ReverseIntake(ball));
     stick.getButton(reverseMiddleButton).whileHeld(new ReverseMiddle(ball));
-    stick.getButton(5).whileHeld(new DumpEmOut(ball));
+    stick.getButton(dumpEmOutButton).whenPressed(new DumpEmOut(ball));
 
     // Lift
     stick.getButton(liftUpButton).whileHeld(new LiftUp(lift));

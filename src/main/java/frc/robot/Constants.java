@@ -69,6 +69,7 @@ public final class Constants {
     public static final int reverseIntakeButton = 4;
     public static final int flipServoButton = 5;
     public static final int reverseMiddleButton = 6;
+    public static final int dumpEmOutButton = 7;
 
     // Lift
     // Motor Controllers

@@ -55,10 +55,10 @@ public class DashHelper {
 
         sbEncoderDistance = mainDash.add("Encoder", 0).getEntry();*/
 
-        sbRedValue = mainDash.add("Red Value", 0).getEntry();
+/*        sbRedValue = mainDash.add("Red Value", 0).getEntry();
         sbGreenValue = mainDash.add("Green Value", 0).getEntry();
         sbBlueValue = mainDash.add("Blue Value", 0).getEntry();
-
+*/
         sbServoOpen = mainDash.add("Servo open", false).getEntry();
 
         kP = mainDash.add("P", 0.015).getEntry();

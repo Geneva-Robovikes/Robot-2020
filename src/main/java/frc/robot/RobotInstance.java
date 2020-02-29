@@ -20,6 +20,8 @@ import frc.robot.commands.drivecommands.EmergencyStop;
 import frc.robot.commands.drivecommands.SpinAngle;
 import frc.robot.commands.liftcommands.LiftDown;
 import frc.robot.commands.liftcommands.LiftUp;
+import frc.robot.commands.wheelcommands.SpinWheelColor;
+import frc.robot.commands.wheelcommands.SpinWheelRotations;
 import frc.robot.subsystems.BallSystem;
 import frc.robot.subsystems.Drive;
 import com.analog.adis16448.frc.ADIS16448_IMU;
@@ -131,9 +133,9 @@ public class RobotInstance {
 
     // Button bindings
     // Drive
-    stick.getButton(spin180Button).whenPressed(new SpinAngle(drive, 180));
+    //stick.getButton(spin180Button).whenPressed(new SpinAngle(drive, 180));
     stick.getButton(emergencyStopButton).whenPressed(new EmergencyStop(drive));
-
+    stick.getButton(3).whenPressed(new SpinWheelColor(wheelSpinner));
 
     // Ball
     stick.getButton(ballFlywheelButton).whileHeld(new BallFlywheel(ball));

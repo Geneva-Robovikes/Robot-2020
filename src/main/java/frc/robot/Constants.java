@@ -62,7 +62,7 @@ public final class Constants {
 
     // Speeds
     public static final double intakeSpeed = .4;
-    public static final double middleSpeed = -.65;
+    public static final double middleSpeed = -1;
     public static final double flywheelSpeed = -.50;
 
     // Button Bindings

@@ -46,13 +46,13 @@ public class WheelSpinner extends SubsystemBase {
         } else{
             ret = "Unkown";
         }
-        System.out.println(ret);
+        //System.out.println(ret);
         return ret;
 
     }
 
     public double getColorMatchConfidence(){
-        System.out.println(match.confidence);
+        //System.out.println(match.confidence);
         return match.confidence;
     }
 
@@ -60,7 +60,7 @@ public class WheelSpinner extends SubsystemBase {
     @Override
     public void periodic(){
         match = colorMatcher.matchClosestColor(getColor());
-        DashHelper.getInstance().setColor(getColor());
+        //DashHelper.getInstance().setColor(getColor());
         getColorMatch();
         getColorMatchConfidence();
     }

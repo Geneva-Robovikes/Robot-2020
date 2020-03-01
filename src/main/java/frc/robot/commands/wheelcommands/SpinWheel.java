@@ -1,20 +1,27 @@
 package frc.robot.commands.wheelcommands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.WheelSpinner;
 
 import static frc.robot.Constants.*;
 
 public class SpinWheel extends CommandBase {
-    private WheelSpinner wheelSpinner;
+    private WheelSpinner wheel;
     public SpinWheel(WheelSpinner spinner){
-        this.wheelSpinner = spinner;
-        addRequirements(wheelSpinner);
+        this.wheel = spinner;
+        addRequirements(wheel);
     }
 
     @Override
     public void initialize(){
-        wheelSpinner.spinWheel(wheelSpinnerSpeed);
+        CommandScheduler.getInstance().schedule(new FlipColorSensorServo(wheel));
+        if(DriverStation.getInstance().getGameSpecificMessage() != null){
+            CommandScheduler.getInstance().schedule(new SpinWheelColor(wheel));
+        } else{
+            CommandScheduler.getInstance().schedule(new SpinWheelRotations(wheel));
+        }
     }
 
     @Override
@@ -25,7 +32,7 @@ public class SpinWheel extends CommandBase {
     @Override
     public void end(boolean interrupted){
         super.end(interrupted);
-        wheelSpinner.spinWheel(0);
+        //wheel.spinWheel(0);
     }
 
 }

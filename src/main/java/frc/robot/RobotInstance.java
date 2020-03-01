@@ -17,11 +17,11 @@ import frc.robot.commands.autocommandgroups.BasicAuto;
 import frc.robot.commands.ballcommands.*;
 import frc.robot.commands.drivecommands.DriveMecanum;
 import frc.robot.commands.drivecommands.EmergencyStop;
-import frc.robot.commands.drivecommands.SpinAngle;
-import frc.robot.commands.liftcommands.LiftDown;
-import frc.robot.commands.liftcommands.LiftUp;
-import frc.robot.commands.wheelcommands.SpinWheelColor;
-import frc.robot.commands.wheelcommands.SpinWheelRotations;
+import frc.robot.commands.liftcommands.PowerLeftLift;
+import frc.robot.commands.liftcommands.PowerRightLift;
+import frc.robot.commands.liftcommands.UnwindLeftLift;
+import frc.robot.commands.liftcommands.UnwindRightLift;
+import frc.robot.commands.wheelcommands.SpinWheel;
 import frc.robot.subsystems.BallSystem;
 import frc.robot.subsystems.Drive;
 import com.analog.adis16448.frc.ADIS16448_IMU;
@@ -41,6 +41,7 @@ import static frc.robot.Constants.*;
 
 public class RobotInstance {
   // Declare all the variables here
+  private boolean liftoMode = false;
 
   // Not Subsystem-Specific
   private RobotStick stick;
@@ -72,6 +73,7 @@ public class RobotInstance {
   // Wheel Components +  Subsystem
   private ColorSensorV3 colorSensor;
   private WheelSpinner wheelSpinner;
+  private Servo colorSensorServo;
 
   // Lift Components + Subsystem
   private Talon liftTalon1;
@@ -107,7 +109,8 @@ public class RobotInstance {
 
     // Wheel Spinner Components + Subsystem
     colorSensor = new ColorSensorV3(i2cPort);
-    wheelSpinner = new WheelSpinner(ballFlywheel2, colorSensor);
+    colorSensorServo = new Servo(colorSensorServoPort);
+    wheelSpinner = new WheelSpinner(ballFlywheel2, colorSensor, colorSensorServo);
 
     // Lift Components + Subsystem
     liftTalon1 = new Talon(talonLift1Port);
@@ -134,8 +137,8 @@ public class RobotInstance {
     // Button bindings
     // Drive
     //stick.getButton(spin180Button).whenPressed(new SpinAngle(drive, 180));
-    stick.getButton(emergencyStopButton).whenPressed(new EmergencyStop(drive));
-    stick.getButton(3).whenPressed(new SpinWheelColor(wheelSpinner));
+    stick.getButton(emergencyStopButton).whenPressed(new EmergencyStop(drive, ball, lift, wheelSpinner));
+    stick.getButton(3).whenPressed(new SpinWheel(wheelSpinner));
 
     // Ball
     stick.getButton(ballFlywheelButton).whileHeld(new BallFlywheel(ball));
@@ -146,11 +149,30 @@ public class RobotInstance {
     stick.getButton(dumpEmOutButton).whenPressed(new DumpEmOut(ball));
 
     // Lift
-    stick.getButton(liftUpButton).whileHeld(new LiftUp(lift));
-    stick.getButton(liftDownButton).whileHeld(new LiftDown(lift));
+    stick.getButton(leftLiftPowerButton).whileHeld(new PowerLeftLift(lift));
+    stick.getButton(rightLiftPowerButton).whileHeld(new PowerRightLift(lift));
 
 
   }
+
+  public void initTestCommands(){
+    // Only needs to be used for unwinding the lift in the pits
+    stick.getButton(leftLiftUnwindButton).whileHeld(new UnwindLeftLift(lift));
+    stick.getButton(rightLiftUnwindButton).whileHeld(new UnwindRightLift(lift));
+  }
+
+  /*public void liftoMode(){
+    if(stick.getButton(11).get()) {
+      liftoMode = !liftoMode;
+      if(liftoMode){
+        // Rebind buttons
+
+      } else{
+        initTeleopCommands();
+      }
+    }
+
+  }*/
 
   public static PowerDistributionPanel getPDP(){
     return pdp;

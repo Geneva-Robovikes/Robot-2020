@@ -62,7 +62,7 @@ public final class Constants {
 
     // Speeds
     public static final double intakeSpeed = .4;
-    public static final double middleSpeed = -1;
+    public static final double middleSpeed = -.75;
     public static final double flywheelSpeed = -.50;
 
     // Button Bindings
@@ -79,15 +79,20 @@ public final class Constants {
     public static final int talonLift2Port = 4;
 
     // Speeds
-    public static final double liftSpeed = .5;
+    public static final double liftSpeed = -1;
 
     // Button Bindings
-    public static final int liftUpButton = 10;
-    public static final int liftDownButton = 11;
+    public static final int leftLiftPowerButton = 9;
+    public static final int rightLiftPowerButton = 10;
+    public static final int leftLiftUnwindButton = 9;
+    public static final int rightLiftUnwindButton = 10;
+    //public static final int liftoModeButton = 11;
+
 
     // Wheel Spinner
     public static final I2C.Port i2cPort = I2C.Port.kOnboard;
     public static final double wheelSpinnerSpeed = 0.25;
+    public static final int colorSensorServoPort = 5;
 
     // Colors
     public static final Color blueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);

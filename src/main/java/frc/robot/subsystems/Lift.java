@@ -4,15 +4,19 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Lift extends SubsystemBase {
-    private Talon lift1;
-    private Talon lift2;
-    public Lift(Talon l1, Talon l2){
-        lift1 = l1;
-        lift2 = l2;
+    private Talon liftLeft;
+    private Talon liftRight;
+    public Lift(Talon left, Talon right){
+        liftLeft = left;
+        liftRight = right;
     }
 
-    public void setLift(double liftSpeed){
-        lift1.set(liftSpeed);
-        lift2.set(-liftSpeed);
+
+    public void setLeftLift(double speed){
+        liftLeft.set(speed);
+    }
+
+    public void setRightLift(double speed){
+        liftRight.set(-speed);
     }
 }

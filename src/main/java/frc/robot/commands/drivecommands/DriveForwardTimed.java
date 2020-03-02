@@ -6,12 +6,12 @@ import frc.robot.subsystems.Drive;
 
 import java.util.concurrent.TimeUnit;
 
-public class DriveForward extends CommandBase {
+public class DriveForwardTimed extends CommandBase {
     private Timer timer;
     private Drive drive;
     private double speed;
     private double time;
-    public DriveForward(Drive drive, double speed, double time) {
+    public DriveForwardTimed(Drive drive, double speed, double time) {
         this.drive = drive;
         this.speed = speed;
         this.time = time;

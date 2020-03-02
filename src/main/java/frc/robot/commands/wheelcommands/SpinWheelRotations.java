@@ -44,5 +44,6 @@ public class SpinWheelRotations extends CommandBase {
     public void end(boolean interrupted){
         super.end(interrupted);
         wheel.spinWheel(0);
+        wheel.closeServo();
     }
 }

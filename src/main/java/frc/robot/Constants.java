@@ -75,8 +75,8 @@ public final class Constants {
 
     // Lift
     // Motor Controllers
-    public static final int talonLift1Port = 3;
-    public static final int talonLift2Port = 4;
+    public static final int talonLiftLeftPort = 3;
+    public static final int talonLiftRightPort = 4;
 
     // Speeds
     public static final double liftSpeed = -1;

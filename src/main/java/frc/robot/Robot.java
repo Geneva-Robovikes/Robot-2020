@@ -21,7 +21,6 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
-  //private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
 
   private RobotInstance robot;
   private DashHelper dash;
@@ -95,13 +94,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    robot.testSlider();
   }
 
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.
-    CommandScheduler.getInstance().cancelAll();
-  }
+    CommandScheduler.getInstance().cancelAll(); }
 
   /**
    * This function is called periodically during test mode.

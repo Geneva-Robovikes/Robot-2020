@@ -60,7 +60,7 @@ public class WheelSpinner extends SubsystemBase {
         } else if(match.color == yellowTarget){
             ret = "Yellow";
         } else{
-            ret = "Unkown";
+            ret = "Unknown";
         }
         //System.out.println(ret);
         return ret;
@@ -77,7 +77,7 @@ public class WheelSpinner extends SubsystemBase {
     public void periodic(){
         match = colorMatcher.matchClosestColor(getColor());
         //DashHelper.getInstance().setColor(getColor());
-        getColorMatch();
-        getColorMatchConfidence();
+        //getColorMatch();
+        //getColorMatchConfidence();
     }
 }

@@ -37,10 +37,12 @@ public class EmergencyStop extends CommandBase {
         ball.spinIntakeMiddle(0, 0);
 
         // Lift stop
-        lift.setLift(0);
+        lift.setLeftLift(0);
+        lift.setRightLift(0);
 
         // Wheel stop
         wheel.spinWheel(0);
+        wheel.closeServo();
 
         RobotInstance.getPDP().clearStickyFaults();
     }

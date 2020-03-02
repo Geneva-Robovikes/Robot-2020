@@ -9,7 +9,8 @@ import static frc.robot.Constants.*;
 public class SpinWheelColor extends CommandBase {
     private WheelSpinner wheel;
     private String ourColor;
-    private String wantedColor;
+    private int counter;
+
     public SpinWheelColor(WheelSpinner wheel){
         this.wheel = wheel;
         addRequirements(wheel);
@@ -17,7 +18,7 @@ public class SpinWheelColor extends CommandBase {
 
     @Override
     public void initialize(){
-        this.wantedColor = DriverStation.getInstance().getGameSpecificMessage();
+        String wantedColor = DriverStation.getInstance().getGameSpecificMessage();
         wheel.spinWheel(wheelSpinnerSpeed);
         char check = wantedColor.charAt(0);
         if (check == 'B') {
@@ -29,27 +30,25 @@ public class SpinWheelColor extends CommandBase {
         } else if (check == 'Y') {
             ourColor = "Green";
         }
-        System.out.println("Here");
-        System.out.println(ourColor);
     }
 
     @Override
     public void execute(){
-
+        // See color for .1 seconds before stopping
+        if(ourColor.equals(wheel.getColorMatch())){
+            counter++;
+        }
     }
 
     @Override
     public boolean isFinished(){
-        if (ourColor == wheel.getColorMatch()) {
-            return true;
-        } else {
-            return false;
-        }
+        return counter >= 5;
     }
 
     @Override
     public void end(boolean interrupted){
         super.end(interrupted);
         wheel.spinWheel(0);
+        wheel.closeServo();
     }
 }

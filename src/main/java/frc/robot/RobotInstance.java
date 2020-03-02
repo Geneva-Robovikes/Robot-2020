@@ -76,8 +76,8 @@ public class RobotInstance {
   private Servo colorSensorServo;
 
   // Lift Components + Subsystem
-  private Talon liftTalon1;
-  private Talon liftTalon2;
+  private Talon liftTalonLeft;
+  private Talon liftTalonRight;
   private Lift lift;
 
   public RobotInstance() {
@@ -113,9 +113,9 @@ public class RobotInstance {
     wheelSpinner = new WheelSpinner(ballFlywheel2, colorSensor, colorSensorServo);
 
     // Lift Components + Subsystem
-    liftTalon1 = new Talon(talonLift1Port);
-    liftTalon2 = new Talon(talonLift2Port);
-    lift = new Lift(liftTalon1, liftTalon2);
+    liftTalonLeft = new Talon(talonLiftLeftPort);
+    liftTalonRight = new Talon(talonLiftRightPort);
+    lift = new Lift(liftTalonLeft, liftTalonRight);
 
   }
 
@@ -137,8 +137,7 @@ public class RobotInstance {
     // Button bindings
     // Drive
     //stick.getButton(spin180Button).whenPressed(new SpinAngle(drive, 180));
-    stick.getButton(emergencyStopButton).whenPressed(new EmergencyStop(drive, ball, lift, wheelSpinner));
-    stick.getButton(3).whenPressed(new SpinWheel(wheelSpinner));
+    stick.getButton(emergencyStopButton).whenPressed(new EmergencyStop(drive, ball, lift, wheelSpinner), false);
 
     // Ball
     stick.getButton(ballFlywheelButton).whileHeld(new BallFlywheel(ball));
@@ -146,19 +145,25 @@ public class RobotInstance {
     stick.getButton(flipServoButton).whenPressed(new FlipServo(ball));
     stick.getButton(reverseIntakeButton).whileHeld(new ReverseIntake(ball));
     stick.getButton(reverseMiddleButton).whileHeld(new ReverseMiddle(ball));
-    stick.getButton(dumpEmOutButton).whenPressed(new DumpEmOut(ball));
+    //stick.getButton(dumpEmOutButton).whenPressed(new DumpEmOut(ball));
+
+    // Wheel
+    stick.getButton(3).whenPressed(new SpinWheel(wheelSpinner));
 
     // Lift
-    stick.getButton(leftLiftPowerButton).whileHeld(new PowerLeftLift(lift));
-    stick.getButton(rightLiftPowerButton).whileHeld(new PowerRightLift(lift));
+    stick.getButton(leftLiftPowerButton).whileHeld(new PowerLeftLift(lift, stick));
+    stick.getButton(rightLiftPowerButton).whileHeld(new PowerRightLift(lift,  stick));
+
+    stick.getButton(7).whileHeld(new UnwindLeftLift(lift, stick));
+    stick.getButton(8).whileHeld(new UnwindRightLift(lift, stick));
 
 
   }
 
-  public void initTestCommands(){
-    // Only needs to be used for unwinding the lift in the pits
-    stick.getButton(leftLiftUnwindButton).whileHeld(new UnwindLeftLift(lift));
-    stick.getButton(rightLiftUnwindButton).whileHeld(new UnwindRightLift(lift));
+
+
+  public void testSlider(){
+    System.out.println(stick.getSlider());
   }
 
   /*public void liftoMode(){

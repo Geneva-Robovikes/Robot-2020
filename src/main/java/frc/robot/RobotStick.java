@@ -6,12 +6,11 @@ import static frc.robot.Constants.*;
 
 
 public class RobotStick extends Joystick { // Defines the joystick
-    double dead;
-    public JoystickButton buttons[];
+    private JoystickButton[] buttons;
 
 
 
-    public RobotStick(int port) { //The states of all the buttons on the joystick in an array
+    public RobotStick(int port) {
         super(port);
 
         buttons = new JoystickButton[12];
@@ -37,12 +36,17 @@ public class RobotStick extends Joystick { // Defines the joystick
     }
 
     public double getDY() { // Gets joystick Y input (forward/backward)
-        // Negative because Y-Axis is inverted
+        // Negative because Y-Axis is inverted by default on our joystick
         return -1 * deadZone(this.getRawAxis(1), yDeadZone);
     }
 
     public double getDZ() { // Gets joystick Z input (twist)
         return deadZone(this.getRawAxis(2), zDeadZone);
+    }
+
+    public double getSlider(){
+        double ret = ( (-this.getRawAxis(3)) + 1) / 2;
+        return ret;
     }
 
     public int getNub() { // Input for POV stick

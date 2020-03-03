@@ -24,7 +24,7 @@ public class SpinWheelRotations extends CommandBase {
     @Override
     public void execute(){
         currentColor = wheel.getColorMatch();
-        if (previousColor == "Yellow" && currentColor == "Red") {
+        if (previousColor.equals("Yellow") && currentColor.equals("Red")) {
             counter ++;
         }
         previousColor = currentColor;
@@ -33,11 +33,7 @@ public class SpinWheelRotations extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        if (counter == 8) {
-            return true;
-        } else{
-            return false;
-        }
+        return counter == 7;
     }
 
     @Override

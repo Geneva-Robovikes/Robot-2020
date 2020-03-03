@@ -9,9 +9,9 @@ public class BasicAuto extends SequentialCommandGroup {
 
     public BasicAuto (Drive drive, double angle) {
         addCommands(
-                new DriveForwardTimed(drive, .5, 3),
-                new SpinAngle(drive, angle),
-                new DriveForwardTimed(drive, .5, 3)
+                new DriveForwardTimed(drive, .5, 2),
+                new SpinAngle(drive, angle)
+                //new DriveForwardTimed(drive, .5, 3)
         );
     }
 

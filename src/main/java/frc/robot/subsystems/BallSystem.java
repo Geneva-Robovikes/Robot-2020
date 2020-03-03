@@ -19,6 +19,7 @@ public class BallSystem extends SubsystemBase {
     private CANSparkMax flywheel1;
     private CANSparkMax flywheel2;
     private Servo servoGate;
+    private boolean servoClosed;
 
     public BallSystem(Spark intake, Spark middle, CANSparkMax flywheel1, CANSparkMax flywheel2, Servo servo) {
         this.intake = intake;
@@ -28,6 +29,7 @@ public class BallSystem extends SubsystemBase {
 
         this.servoGate = servo;
         this.closeServo();
+        servoClosed = true;
     }
 
     public void spinIntakeMiddle(double intakeSpeed, double middleSpeed) {
@@ -42,13 +44,19 @@ public class BallSystem extends SubsystemBase {
 
     public void openServo(){
         servoGate.setAngle(60);
+        servoClosed = false;
     }
 
     public void closeServo(){
         servoGate.setAngle(90);
+        servoClosed = true;
     }
 
     public double getServoAngle(){
         return servoGate.getAngle();
+    }
+
+    public boolean isServoClosed(){
+        return servoClosed;
     }
 }

@@ -22,6 +22,7 @@ public class DumpEmOut extends CommandBase {
 
     @Override
     public void initialize(){
+        t.reset();
         t.start();
         ball.closeServo();
         ball.spinIntakeMiddle(intakeSpeed, middleSpeed);
@@ -38,7 +39,7 @@ public class DumpEmOut extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        return (t.get() > 2.5);
+        return (t.get() > 3);
     }
 
     @Override

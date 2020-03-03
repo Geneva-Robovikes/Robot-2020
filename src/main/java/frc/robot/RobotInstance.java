@@ -14,9 +14,11 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.autocommandgroups.BasicAuto;
+import frc.robot.commands.autocommandgroups.ScoreAuto;
 import frc.robot.commands.ballcommands.*;
 import frc.robot.commands.drivecommands.DriveMecanum;
 import frc.robot.commands.drivecommands.EmergencyStop;
+import frc.robot.commands.drivecommands.SpinAngle;
 import frc.robot.commands.liftcommands.PowerLeftLift;
 import frc.robot.commands.liftcommands.PowerRightLift;
 import frc.robot.commands.liftcommands.UnwindLeftLift;
@@ -123,8 +125,9 @@ public class RobotInstance {
     // Kill anything just in case
     CommandScheduler.getInstance().cancelAll();
 
-    BasicAuto bAuto = new BasicAuto(drive, 90);
-    CommandScheduler.getInstance().schedule(bAuto);
+    //BasicAuto bAuto = new BasicAuto(drive, 90);
+    ScoreAuto sAuto = new ScoreAuto(drive, ball);
+    CommandScheduler.getInstance().schedule(sAuto);
   }
 
   public void initTeleopCommands(){
@@ -136,7 +139,7 @@ public class RobotInstance {
 
     // Button bindings
     // Drive
-    //stick.getButton(spin180Button).whenPressed(new SpinAngle(drive, 180));
+    stick.getButton(spin180Button).whenPressed(new SpinAngle(drive, 180));
     stick.getButton(emergencyStopButton).whenPressed(new EmergencyStop(drive, ball, lift, wheelSpinner), false);
 
     // Ball
@@ -145,17 +148,17 @@ public class RobotInstance {
     stick.getButton(flipServoButton).whenPressed(new FlipServo(ball));
     stick.getButton(reverseIntakeButton).whileHeld(new ReverseIntake(ball));
     stick.getButton(reverseMiddleButton).whileHeld(new ReverseMiddle(ball));
-    //stick.getButton(dumpEmOutButton).whenPressed(new DumpEmOut(ball));
+    stick.getButton(dumpEmOutButton).whenPressed(new DumpEmOut(ball));
 
     // Wheel
-    stick.getButton(3).whenPressed(new SpinWheel(wheelSpinner));
+    stick.getButton(wheelSpinnerButton).whenPressed(new SpinWheel(wheelSpinner));
 
     // Lift
     stick.getButton(leftLiftPowerButton).whileHeld(new PowerLeftLift(lift, stick));
     stick.getButton(rightLiftPowerButton).whileHeld(new PowerRightLift(lift,  stick));
 
-    stick.getButton(7).whileHeld(new UnwindLeftLift(lift, stick));
-    stick.getButton(8).whileHeld(new UnwindRightLift(lift, stick));
+    //stick.getButton(leftLiftUnwindButton).whileHeld(new UnwindLeftLift(lift, stick));
+    //stick.getButton(rightLiftUnwindButton).whileHeld(new UnwindRightLift(lift, stick));
 
 
   }

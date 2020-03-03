@@ -11,6 +11,10 @@ public class DriveForwardTimed extends CommandBase {
     private Drive drive;
     private double speed;
     private double time;
+    private double kP = 0.05;
+    private final double spinConstant = 0.125;
+    private double previousError;
+
     public DriveForwardTimed(Drive drive, double speed, double time) {
         this.drive = drive;
         this.speed = speed;
@@ -21,12 +25,17 @@ public class DriveForwardTimed extends CommandBase {
 
     @Override
     public void initialize() {
+        timer.reset();
+        previousError = 0;
         timer.start();
     }
 
     @Override
     public void execute() {
-        drive.setDriveVictors(speed, -speed, speed, -speed);
+        double error = drive.getZeroAngle() - drive.getGyroAngle();
+        double turnPower = kP * error;
+        drive.setMechDriveAutomatic(0, speed, turnPower);
+        previousError = error;
     }
 
     @Override
@@ -39,5 +48,6 @@ public class DriveForwardTimed extends CommandBase {
     public void end(boolean interrupted) {
         super.end(interrupted);
         drive.setDriveVictors(0,0,0,0);
+        drive.setMechDriveAutomatic(0,0, 0);
     }
 }

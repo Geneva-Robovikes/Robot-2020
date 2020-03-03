@@ -34,16 +34,16 @@ public final class Constants {
     public static final double xSpeed = .80;
     public static final double ySpeed = 1;
     public static final double zSpeedAuto = .45;
-    public static final double zSpeedManual = .85;
+    public static final double zSpeedManual = .75;
 
     // Deadzones
     public static final double xDeadZone = .20;
     public static final double yDeadZone = .10;
-    public static final double zDeadZone = .30;
+    public static final double zDeadZone = .25;
     public static final double gyroDeadZone = 1;
 
     // Button Bindings
-    public static final int spin180Button = 3;
+    public static final int spin180Button = 7;
     public static final int emergencyStopButton = 12;
 
     // Other
@@ -68,10 +68,10 @@ public final class Constants {
     // Button Bindings
     public static final int ballFlywheelButton = 1;
     public static final int ballMiddleIntakeButton = 2;
-    public static final int reverseIntakeButton = 4;
-    public static final int flipServoButton = 5;
-    public static final int reverseMiddleButton = 6;
-    public static final int dumpEmOutButton = 7;
+    public static final int reverseIntakeButton = 6;
+    public static final int flipServoButton = 3;
+    public static final int reverseMiddleButton = 5;
+    public static final int dumpEmOutButton = 4;
 
     // Lift
     // Motor Controllers
@@ -84,8 +84,8 @@ public final class Constants {
     // Button Bindings
     public static final int leftLiftPowerButton = 9;
     public static final int rightLiftPowerButton = 10;
-    public static final int leftLiftUnwindButton = 9;
-    public static final int rightLiftUnwindButton = 10;
+    public static final int leftLiftUnwindButton = 7;
+    public static final int rightLiftUnwindButton = 8;
     //public static final int liftoModeButton = 11;
 
 
@@ -93,6 +93,7 @@ public final class Constants {
     public static final I2C.Port i2cPort = I2C.Port.kOnboard;
     public static final double wheelSpinnerSpeed = 0.25;
     public static final int colorSensorServoPort = 5;
+    public static final int wheelSpinnerButton = 11;
 
     // Colors
     public static final Color blueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);

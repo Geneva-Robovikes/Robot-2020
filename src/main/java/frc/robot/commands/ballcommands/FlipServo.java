@@ -13,12 +13,12 @@ public class FlipServo extends CommandBase {
 
     @Override
     public void initialize(){
-        if(ball.getServoAngle() == 90){
+        if(ball.isServoClosed()){
             ball.openServo();
-            //DashHelper.sbServoOpen.setBoolean(true);
+            DashHelper.sbServoOpen.setBoolean(true);
         } else {
             ball.closeServo();
-            //DashHelper.sbServoOpen.setBoolean(false);
+            DashHelper.sbServoOpen.setBoolean(false);
         }
     }
 

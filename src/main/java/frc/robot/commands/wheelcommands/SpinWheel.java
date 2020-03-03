@@ -18,7 +18,7 @@ public class SpinWheel extends CommandBase {
     public void initialize(){
         wheel.openServo();
         //CommandScheduler.getInstance().schedule(new FlipColorSensorServo(wheel));
-        if(DriverStation.getInstance().getGameSpecificMessage() != null){
+        if(!DriverStation.getInstance().getGameSpecificMessage().equals("")){
             CommandScheduler.getInstance().schedule(new SpinWheelColor(wheel));
         } else{
             CommandScheduler.getInstance().schedule(new SpinWheelRotations(wheel));

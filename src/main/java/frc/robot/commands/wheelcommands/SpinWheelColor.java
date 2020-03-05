@@ -18,8 +18,8 @@ public class SpinWheelColor extends CommandBase {
 
     @Override
     public void initialize(){
+        counter = 0;
         String wantedColor = DriverStation.getInstance().getGameSpecificMessage();
-        wheel.spinWheel(wheelSpinnerSpeed);
         char check = wantedColor.charAt(0);
         if (check == 'B') {
             ourColor = "Red";
@@ -32,11 +32,12 @@ public class SpinWheelColor extends CommandBase {
         } else{
             end(true);
         }
+        wheel.spinWheel(wheelSpinnerSpeed);
+
     }
 
     @Override
     public void execute(){
-        // See color for .1 seconds before stopping
         if(ourColor.equals(wheel.getColorMatch())){
             counter++;
         }
@@ -44,10 +45,10 @@ public class SpinWheelColor extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        if(counter == 1){
+        if(counter == 2){
             wheel.spinWheel(-wheelSpinnerSpeed);
         }
-        return counter >= 2;
+        return counter >= 13;
     }
 
     @Override

@@ -9,9 +9,13 @@ public class SpinWheelRotations extends CommandBase {
     private WheelSpinner wheel;
     private String currentColor;
     private String previousColor;
+    private double numRotations;
     private int counter;
-    public SpinWheelRotations(WheelSpinner wheel){
+
+
+    public SpinWheelRotations(WheelSpinner wheel, double numSpins){
         this.wheel = wheel;
+        this.numRotations = numSpins;
         addRequirements(wheel);
     }
 
@@ -33,7 +37,7 @@ public class SpinWheelRotations extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        return counter == 7;
+        return counter == (numRotations * 2);
     }
 
     @Override

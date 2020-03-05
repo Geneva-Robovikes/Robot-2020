@@ -6,6 +6,7 @@ import frc.robot.subsystems.BallSystem;
 
 public class FlipServo extends CommandBase {
     private BallSystem ball;
+    private int n;
 
     public FlipServo(BallSystem ball){
         this.ball = ball;
@@ -13,18 +14,29 @@ public class FlipServo extends CommandBase {
 
     @Override
     public void initialize(){
+        n =0;
         if(ball.isServoClosed()){
             ball.openServo();
-            //DashHelper.sbServoOpen.setBoolean(true);
+            DashHelper.sbServoOpen.setBoolean(true);
         } else {
             ball.closeServo();
-            //DashHelper.sbServoOpen.setBoolean(false);
+            DashHelper.sbServoOpen.setBoolean(false);
         }
     }
 
     @Override
+    public void execute(){
+        n++;
+    }
+
+    @Override
     public boolean isFinished(){
-        return true;
+        return n >= 2;
+    }
+
+    @Override
+    public void end(boolean interrupted){
+        super.end(interrupted);
     }
 
 

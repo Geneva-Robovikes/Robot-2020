@@ -16,7 +16,7 @@ public class ScoreAuto  extends SequentialCommandGroup {
         this.ball = ball;
 
         addCommands(
-                new DriveForwardTimed(drive, -.35, 2.25),
+                new DriveForwardTimed(drive, -.35, 2.75),
                 new DumpEmOut(ball),
                 new DriveForwardTimed(drive, .25, 1),
                 new SpinAngle(drive, 90),

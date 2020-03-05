@@ -9,7 +9,11 @@ import static frc.robot.Constants.*;
 public class SpinWheelColor extends CommandBase {
     private WheelSpinner wheel;
     private String ourColor;
-    private int counter;
+    private String currentColor;
+    private String previousColor;
+    private int rotateCounter;
+    private int colorCounter;
+    private boolean rotated;
 
     public SpinWheelColor(WheelSpinner wheel){
         this.wheel = wheel;
@@ -18,7 +22,9 @@ public class SpinWheelColor extends CommandBase {
 
     @Override
     public void initialize(){
-        counter = 0;
+        rotateCounter = 0;
+        colorCounter  = 0;
+        rotated = false;
         String wantedColor = DriverStation.getInstance().getGameSpecificMessage();
         char check = wantedColor.charAt(0);
         if (check == 'B') {
@@ -33,22 +39,33 @@ public class SpinWheelColor extends CommandBase {
             end(true);
         }
         wheel.spinWheel(wheelSpinnerSpeed);
-
+        previousColor = wheel.getColorMatch();
     }
 
     @Override
     public void execute(){
-        if(ourColor.equals(wheel.getColorMatch())){
-            counter++;
+        if(!rotated) {
+            currentColor = wheel.getColorMatch();
+            if (previousColor.equals("Red") && currentColor.equals("Yellow")) {
+                rotateCounter++;
+            }
+            previousColor = currentColor;
+        } else {
+            if (ourColor.equals(wheel.getColorMatch())) {
+                colorCounter++;
+            }
         }
     }
 
     @Override
     public boolean isFinished(){
-        if(counter == 2){
+        if(rotateCounter >= 2){
+            rotated = true;
+        }
+        if(colorCounter == 2){
             wheel.spinWheel(-wheelSpinnerSpeed);
         }
-        return counter >= 13;
+        return colorCounter >= 13;
     }
 
     @Override

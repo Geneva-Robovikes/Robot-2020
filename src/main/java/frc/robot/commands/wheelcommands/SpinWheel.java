@@ -21,6 +21,7 @@ public class SpinWheel extends CommandBase {
 
     @Override
     public void initialize(){
+        done = false;
         t.reset();
         t.start();
         wheel.openServo();
@@ -33,10 +34,9 @@ public class SpinWheel extends CommandBase {
     public void execute(){
         if(t.get() > .5){
             if(!DriverStation.getInstance().getGameSpecificMessage().equals("")){
-                CommandScheduler.getInstance().schedule(new SpinWheelRotations(wheel, 1));
                 CommandScheduler.getInstance().schedule(new SpinWheelColor(wheel));
             } else{
-                CommandScheduler.getInstance().schedule(new SpinWheelRotations(wheel, 3.5));
+                CommandScheduler.getInstance().schedule(new SpinWheelRotations(wheel));
             }
             done = true;
         }

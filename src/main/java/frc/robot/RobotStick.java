@@ -46,7 +46,7 @@ public class RobotStick extends Joystick { // Defines the joystick
 
     public double getSlider(){
         double ret = ( (-this.getRawAxis(3)) + 1) / 2;
-        return ret;
+        return -ret;
     }
 
     public int getNub() { // Input for POV stick

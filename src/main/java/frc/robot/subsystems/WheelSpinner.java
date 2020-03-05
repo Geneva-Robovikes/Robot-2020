@@ -50,6 +50,7 @@ public class WheelSpinner extends SubsystemBase {
     }
 
     public String getColorMatch(){
+        match = colorMatcher.matchClosestColor(getColor());
         String ret;
         if(match.color == blueTarget){
             ret = "Blue";
@@ -75,7 +76,6 @@ public class WheelSpinner extends SubsystemBase {
 
     @Override
     public void periodic(){
-        match = colorMatcher.matchClosestColor(getColor());
         //DashHelper.getInstance().setColor(getColor());
         //getColorMatch();
         //getColorMatchConfidence();

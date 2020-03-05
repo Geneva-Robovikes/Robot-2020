@@ -26,6 +26,7 @@ public class EmergencyStop extends CommandBase {
 
     @Override
     public void initialize(){
+        t.reset();
         t.start();
         // Drive stop + reset
         drive.setMechDriveManual(0, 0, 0);

@@ -29,6 +29,8 @@ public class SpinWheelColor extends CommandBase {
             ourColor = "Yellow";
         } else if (check == 'Y') {
             ourColor = "Green";
+        } else{
+            end(true);
         }
     }
 
@@ -42,7 +44,10 @@ public class SpinWheelColor extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        return counter >= 5;
+        if(counter == 1){
+            wheel.spinWheel(-wheelSpinnerSpeed);
+        }
+        return counter >= 2;
     }
 
     @Override

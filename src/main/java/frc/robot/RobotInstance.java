@@ -13,7 +13,6 @@ import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.autocommandgroups.BasicAuto;
 import frc.robot.commands.autocommandgroups.ScoreAuto;
 import frc.robot.commands.ballcommands.*;
 import frc.robot.commands.drivecommands.DriveMecanum;
@@ -69,7 +68,7 @@ public class RobotInstance {
   private CANSparkMax ballFlywheel2;
   private Spark ballIntake;
   private Spark ballMiddle;
-  private Servo servo;
+  private Servo ballServo;
   private BallSystem ball;
 
   // Wheel Components +  Subsystem
@@ -105,9 +104,9 @@ public class RobotInstance {
     ballMiddle = new Spark(sparkMiddlePort);
     ballFlywheel1 = new CANSparkMax(sparkMAXFlywheel1ID, CANSparkMaxLowLevel.MotorType.kBrushed);
     ballFlywheel2 = new CANSparkMax(sparkMAXFlywheel2ID, CANSparkMaxLowLevel.MotorType.kBrushed);
-    servo = new Servo(servoPort);
+    ballServo = new Servo(ballServoPort);
 
-    ball = new BallSystem(ballIntake, ballMiddle, ballFlywheel1, ballFlywheel2,  servo);
+    ball = new BallSystem(ballIntake, ballMiddle, ballFlywheel1, ballFlywheel2, ballServo);
 
     // Wheel Spinner Components + Subsystem
     colorSensor = new ColorSensorV3(i2cPort);

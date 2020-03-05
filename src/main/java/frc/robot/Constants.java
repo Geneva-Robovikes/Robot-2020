@@ -34,12 +34,12 @@ public final class Constants {
     public static final double xSpeed = .80;
     public static final double ySpeed = 1;
     public static final double zSpeedAuto = .45;
-    public static final double zSpeedManual = .75;
+    public static final double zSpeedManual = .65;
 
     // Deadzones
     public static final double xDeadZone = .20;
     public static final double yDeadZone = .10;
-    public static final double zDeadZone = .25;
+    public static final double zDeadZone = .35;
     public static final double gyroDeadZone = 1;
 
     // Button Bindings
@@ -58,7 +58,7 @@ public final class Constants {
     public static final int sparkMAXFlywheel2ID = 6;
 
     // Servo
-    public static final int servoPort = 2;
+    public static final int ballServoPort = 2;
 
     // Speeds
     public static final double intakeSpeed = .4;
